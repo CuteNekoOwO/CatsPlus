@@ -1,14 +1,10 @@
 package cuteneko.catsplus.mixin;
 
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.network.packet.s2c.play.EntityPassengersSetS2CPacket;
@@ -19,13 +15,9 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
@@ -39,7 +31,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 //    @Final @Shadow @Mutable
 //    private static Ingredient TAMING_INGREDIENT;
 
-    private static Ingredient TAMED_INGREDIENT = Ingredient.ofItems(
+    private static final Ingredient TAMED_INGREDIENT = Ingredient.ofItems(
             Items.COD,
             Items.SALMON,
             Items.COOKED_COD,
@@ -52,7 +44,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 
 //    @Inject(method = "<clinit>", at = @At("TAIL"))
 //    private static void clinit(CallbackInfo ci) {
-//        TAMING_INGREDIENT = Ingredient.ofItems(Items.COD, Items.SALMON, Items.COOKED_COD, Items.COOKED_SALMON);
+//        TAMING_INGREDIENT = Ingredient.ofItems(MyItems.COD, MyItems.SALMON, MyItems.COOKED_COD, MyItems.COOKED_SALMON);
 //
 //    }
 

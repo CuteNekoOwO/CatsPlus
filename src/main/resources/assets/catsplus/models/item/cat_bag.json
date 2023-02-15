@@ -1,0 +1,81 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "catsplus:item/cat_bag",
+    "layer1": "catsplus:item/cat_bag_overlay"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "cat": 0.05
+      },
+      "model": "catsplus:item/tabby"
+    },
+    {
+      "predicate": {
+        "cat": 0.1
+      },
+      "model": "catsplus:item/black"
+    },
+    {
+      "predicate": {
+        "cat": 0.15
+      },
+      "model": "catsplus:item/red"
+    },
+    {
+      "predicate": {
+        "cat": 0.2
+      },
+      "model": "catsplus:item/siamese"
+    },
+    {
+      "predicate": {
+        "cat": 0.25
+      },
+      "model": "catsplus:item/british_shorthair"
+    },
+    {
+      "predicate": {
+        "cat": 0.3
+      },
+      "model": "catsplus:item/calico"
+    },
+    {
+      "predicate": {
+        "cat": 0.35
+      },
+      "model": "catsplus:item/persian"
+    },
+    {
+      "predicate": {
+        "cat": 0.4
+      },
+      "model": "catsplus:item/ragdoll"
+    },
+    {
+      "predicate": {
+        "cat": 0.45
+      },
+      "model": "catsplus:item/white"
+    },
+    {
+      "predicate": {
+        "cat": 0.5
+      },
+      "model": "catsplus:item/jellie"
+    },
+    {
+      "predicate": {
+        "cat": 0.55
+      },
+      "model": "catsplus:item/all_black"
+    },
+    {
+      "predicate": {
+        "cat": 0.6
+      },
+      "model": "catsplus:item/fabric"
+    }
+  ]
+}
