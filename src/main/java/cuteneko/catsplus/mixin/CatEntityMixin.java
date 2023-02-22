@@ -7,6 +7,8 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.nbt.NbtElement;
 import net.minecraft.network.packet.s2c.play.EntityPassengersSetS2CPacket;
 import net.minecraft.recipe.Ingredient;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -18,18 +20,17 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(CatEntity.class)
 public abstract class CatEntityMixin extends TameableEntity {
 
+    private int Favorability = 0;
     private boolean songPlaying;
     @Nullable
     private BlockPos songSource;
-
-//    @Final @Shadow @Mutable
-//    private static Ingredient TAMING_INGREDIENT;
 
     private static final Ingredient TAMED_INGREDIENT = Ingredient.ofItems(
             Items.COD,
@@ -38,15 +39,21 @@ public abstract class CatEntityMixin extends TameableEntity {
             Items.COOKED_SALMON,
             Items.TROPICAL_FISH);
 
+    @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
+    public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
+        nbt.putInt("Favorability", Favorability);
+    }
+
+    @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
+    public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
+        if(nbt.contains("Favorability", NbtElement.INT_TYPE)) {
+            this.Favorability = nbt.getInt("Favorability");
+        }
+    }
+
     protected CatEntityMixin(EntityType<? extends TameableEntity> entityType, World world) {
         super(entityType, world);
     }
-
-//    @Inject(method = "<clinit>", at = @At("TAIL"))
-//    private static void clinit(CallbackInfo ci) {
-//        TAMING_INGREDIENT = Ingredient.ofItems(MyItems.COD, MyItems.SALMON, MyItems.COOKED_COD, MyItems.COOKED_SALMON);
-//
-//    }
 
     @Inject(method = "isBreedingItem", at = @At("RETURN"), cancellable = true)
     public void isBreedingItem(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {

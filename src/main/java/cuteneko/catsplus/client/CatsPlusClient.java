@@ -36,7 +36,8 @@ public class CatsPlusClient implements ClientModInitializer {
                 });
 
         ColorProviderRegistry.ITEM.register(
-                ((stack, tintIndex) -> tintIndex > 0 ? -1 : ((DyeableItem) stack.getItem()).getColor(stack)),
-                MyItems.CAT_BAG);
+                ((stack, tintIndex) -> tintIndex > 0 ? -1 :  ((DyeableItem) stack.getItem()).getColor(stack)),
+                MyItems.CAT_BAG
+        );
     }
 }

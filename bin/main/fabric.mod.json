@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "catsplus",
+  "version": "${version}",
+  "name": "Cats+",
+  "description": "Cats+!",
+  "authors": [],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/catsplus/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "cuteneko.catsplus.client.CatsPlusClient"
+    ],
+    "main": [
+      "cuteneko.catsplus.CatsPlus"
+    ]
+  },
+  "mixins": [
+    "catsplus.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.14",
+    "fabric": "*",
+    "minecraft": "1.19.3"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "parent": "catsplus:item/cat_bag",
+  "textures": {
+    "layer1": "catsplus:item/cat_bag_ragdoll_overlay"
+  }
+}

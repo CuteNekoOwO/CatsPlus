@@ -9,67 +9,67 @@
       "predicate": {
         "cat": 0.05
       },
-      "model": "catsplus:item/cat_bag_tabby"
+      "model": "catsplus:item/tabby"
     },
     {
       "predicate": {
         "cat": 0.1
       },
-      "model": "catsplus:item/cat_bag_black"
+      "model": "catsplus:item/black"
     },
     {
       "predicate": {
         "cat": 0.15
       },
-      "model": "catsplus:item/cat_bag_red"
+      "model": "catsplus:item/red"
     },
     {
       "predicate": {
         "cat": 0.2
       },
-      "model": "catsplus:item/cat_bag_siamese"
+      "model": "catsplus:item/siamese"
     },
     {
       "predicate": {
         "cat": 0.25
       },
-      "model": "catsplus:item/cat_bag_british_shorthair"
+      "model": "catsplus:item/british_shorthair"
     },
     {
       "predicate": {
         "cat": 0.3
       },
-      "model": "catsplus:item/cat_bag_calico"
+      "model": "catsplus:item/calico"
     },
     {
       "predicate": {
         "cat": 0.35
       },
-      "model": "catsplus:item/cat_bag_persian"
+      "model": "catsplus:item/persian"
     },
     {
       "predicate": {
         "cat": 0.4
       },
-      "model": "catsplus:item/cat_bag_ragdoll"
+      "model": "catsplus:item/ragdoll"
     },
     {
       "predicate": {
         "cat": 0.45
       },
-      "model": "catsplus:item/cat_bag_white"
+      "model": "catsplus:item/white"
     },
     {
       "predicate": {
         "cat": 0.5
       },
-      "model": "catsplus:item/cat_bag_jellie"
+      "model": "catsplus:item/jellie"
     },
     {
       "predicate": {
         "cat": 0.55
       },
-      "model": "catsplus:item/cat_bag_all_black"
+      "model": "catsplus:item/all_black"
     },
     {
       "predicate": {
