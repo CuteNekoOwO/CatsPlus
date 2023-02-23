@@ -3,6 +3,9 @@ plugins {
     id 'maven-publish'
 }
 
+loom {
+    accessWidenerPath = file("src/main/resources/catsplus.accesswidener")
+}
 version = project.mod_version
 group = project.maven_group
 
