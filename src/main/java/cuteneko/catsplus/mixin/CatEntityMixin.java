@@ -1,5 +1,6 @@
 package cuteneko.catsplus.mixin;
 
+import cuteneko.catsplus.accessor.CatEntityMixinAccessor;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -7,6 +8,8 @@ import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.effect.StatusEffectInstance;
+import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,23 +37,69 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
 @Mixin(CatEntity.class)
-public abstract class CatEntityMixin extends TameableEntity {
+public abstract class CatEntityMixin extends TameableEntity implements CatEntityMixinAccessor {
 
     @Shadow public abstract boolean tryAttack(Entity target);
 
-    private int Favorability = 0;
+    @Shadow public abstract void setHeadDown(boolean headDown);
 
-    public void setFavorability(int favorability, PlayerEntity player) {
-        if(favorability < this.Favorability) {
-            this.world.sendEntityStatus(this, EntityStatuses.ADD_NEGATIVE_PLAYER_REACTION_PARTICLES);
+    private int favorability = 0;
+
+    private int lives = 9;
+
+    @Override
+    public int getLives() {
+        return lives;
+    }
+
+    @Override
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    private boolean respawnable = false;
+
+    @Override
+    public boolean getRespawnable() {
+        return this.respawnable;
+    }
+
+    @Override
+    public void setRespawnable(boolean respawnable) {
+        this.respawnable = respawnable;
+    }
+
+
+    private boolean totem = false;
+
+    public boolean hasTotem() {
+        return totem;
+    }
+    @Override
+    protected boolean tryUseTotem(DamageSource source) {
+        if(this.hasTotem()) {
+            this.setHealth(1.0f);
+            this.clearStatusEffects();
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 900, 1));
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 100, 1));
+            this.addStatusEffect(new StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 800, 0));
+            this.world.sendEntityStatus(this, EntityStatuses.USE_TOTEM_OF_UNDYING);
+            this.totem = false;
+            return true;
         }
-        this.Favorability = Math.min(favorability, 100);
-        System.out.println("Current favorability: " + this.Favorability);
-        if(this.Favorability <= 0) {
+        return super.tryUseTotem(source);
+    }
+
+    @Override
+    public void setFavorability(int favorability, PlayerEntity player) {
+        this.favorability = Math.min(favorability, 100);
+        System.out.println("Current favorability: " + this.favorability);
+        if(this.favorability <= 0) {
             this.tryAttack(player);
             this.setOwnerUuid(null);
             this.setTamed(false);
             this.setSitting(false);
+            this.setRespawnable(false);
             this.world.sendEntityStatus(this, EntityStatuses.ADD_VILLAGER_ANGRY_PARTICLES);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
@@ -68,10 +117,11 @@ public abstract class CatEntityMixin extends TameableEntity {
     }
 
     public void addFavorability(int favorability, PlayerEntity player) {
-        setFavorability(this.Favorability + favorability, player);
+        setFavorability(this.favorability + favorability, player);
     }
 
-    public int getFavorability() { return this.Favorability; }
+    @Override
+    public int getFavorability() { return this.favorability; }
     private boolean songPlaying;
     @Nullable
     private BlockPos songSource;
@@ -85,13 +135,17 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "writeCustomDataToNbt", at = @At("TAIL"))
     public void writeCustomDataToNbt(NbtCompound nbt, CallbackInfo ci) {
-        nbt.putInt("Favorability", Favorability);
+        nbt.putInt("Favorability", favorability);
+        nbt.putInt("Lives", lives);
+        nbt.putBoolean("Respawnable", respawnable);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("TAIL"))
     public void readCustomDataFromNbt(NbtCompound nbt, CallbackInfo ci) {
         if(nbt.contains("Favorability", NbtElement.INT_TYPE)) {
-            this.Favorability = nbt.getInt("Favorability");
+            this.favorability = nbt.getInt("Favorability");
+            this.lives = nbt.getInt("Lives");
+            this.respawnable = nbt.getBoolean("Respawnable");
         }
     }
 
@@ -119,25 +173,31 @@ public abstract class CatEntityMixin extends TameableEntity {
             this.startRiding(player);
             ((ServerPlayerEntity)player).networkHandler.sendPacket(new EntityPassengersSetS2CPacket(player));
             cir.setReturnValue(ActionResult.SUCCESS);
+            cir.cancel();
+            return;
         }
+        //Not working since you can never click the cat on your head!!
         else if(player.getFirstPassenger() == this) {
             ((ServerPlayerEntity)player).networkHandler.sendPacket(new EntityPassengersSetS2CPacket(this));
             this.stopRiding();
             ((ServerPlayerEntity)player).networkHandler.sendPacket(new EntityPassengersSetS2CPacket(player));
             cir.setReturnValue(ActionResult.SUCCESS);
+            return;
+        }
+        ItemStack itemStack = player.getStackInHand(hand);
+        if(itemStack.isOf(Items.TOTEM_OF_UNDYING) && !this.hasTotem()) {
+            itemStack.decrement(1);
+            this.totem = true;
+            player.setStackInHand(hand, itemStack);
+            cir.setReturnValue(ActionResult.SUCCESS);
+            cir.cancel();
         }
     }
 
-    @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V"))
+
+        @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V"))
     public void interactMobSetOwner(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        this.Favorability = 50;
-    }
-
-    @Override
-    public void setNearbySongPlaying(BlockPos songPosition, boolean playing) {
-        this.songSource = songPosition;
-        this.songPlaying = playing;
-
+        this.favorability = 50;
     }
 
     @Override
@@ -156,7 +216,24 @@ public abstract class CatEntityMixin extends TameableEntity {
             this.songSource = null;
         }
         super.tickMovement();
+    }
 
+    @Inject(method = "tick", at = @At("HEAD"))
+    public void tick(CallbackInfo ci) {
+        this.setHeadDown(this.songPlaying);
+    }
+
+
+    @Override
+    public void setNearbySongPlaying(BlockPos songPosition, boolean playing) {
+        this.songSource = songPosition;
+        this.songPlaying = playing;
+
+    }
+
+    @Override
+    public boolean isSongPlaying() {
+        return this.songPlaying;
     }
 
     @Override
@@ -179,7 +256,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 
         @Inject(method = "dropMorningGifts", at = @At("TAIL"))
         private void dropMorningGifts(CallbackInfo ci) {
-
+            ((CatEntityMixinAccessor)cat).setRespawnable(true);
         }
     }
 

@@ -6,6 +6,7 @@
   "mixins": [
     "CatEntityMixin",
     "CatEntityMixin$SleepWithOwnerGoal",
+    "CatEntityModelMixin",
     "PlayerEntityMixin"
   ],
   "client": [
