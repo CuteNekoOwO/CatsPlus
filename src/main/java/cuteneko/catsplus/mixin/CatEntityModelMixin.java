@@ -7,7 +7,6 @@ import net.minecraft.client.render.entity.model.OcelotEntityModel;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -29,6 +28,6 @@ public abstract class CatEntityModelMixin<T extends CatEntity>
     public void setAngles(T catEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         if(!((CatEntityMixinAccessor)catEntity).isSongPlaying()) return;
         this.head.pitch = MathHelper.sin(catEntity.age) * 0.3f;
-        this.head.yaw = MathHelper.cos(catEntity.age) * 0.3f;
+        this.head.yaw = MathHelper.cos(catEntity.age) * -0.3f;
     }
 }
