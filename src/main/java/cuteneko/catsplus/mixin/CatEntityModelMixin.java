@@ -19,11 +19,6 @@ public abstract class CatEntityModelMixin<T extends CatEntity>
         super(root);
     }
 
-//    @Inject(method = "animateModel(Lnet/minecraft/entity/passive/CatEntity;FFF)V", at = @At("TAIL"))
-//    public void animateModel(T catEntity, float f, float g, float h, CallbackInfo ci) {
-//        System.out.println(this.headDownAnimation);
-//    }
-
     @Inject(method = "setAngles(Lnet/minecraft/entity/passive/CatEntity;FFFFF)V", at = @At("TAIL"))
     public void setAngles(T catEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
         if(!((CatEntityMixinAccessor)catEntity).isSongPlaying()) return;

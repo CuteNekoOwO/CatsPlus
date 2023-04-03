@@ -1,6 +1,7 @@
 package cuteneko.catsplus.mixin;
 
 import cuteneko.catsplus.accessor.CatEntityMixinAccessor;
+import cuteneko.catsplus.item.MyItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
@@ -35,13 +36,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
+
 
 @Mixin(CatEntity.class)
 public abstract class CatEntityMixin extends TameableEntity implements CatEntityMixinAccessor {
 
     @Shadow public abstract boolean tryAttack(Entity target);
 
-    @Shadow public abstract void setHeadDown(boolean headDown);
+    @Shadow protected abstract void onTamedChanged();
 
     private int favorability = 0;
 
@@ -93,13 +96,13 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
     @Override
     public void setFavorability(int favorability, PlayerEntity player) {
         this.favorability = Math.min(favorability, 100);
-        System.out.println("Current favorability: " + this.favorability);
         if(this.favorability <= 0) {
             this.tryAttack(player);
             this.setOwnerUuid(null);
             this.setTamed(false);
             this.setSitting(false);
             this.setRespawnable(false);
+            this.onTamedChanged();
             this.world.sendEntityStatus(this, EntityStatuses.ADD_VILLAGER_ANGRY_PARTICLES);
             if (player instanceof ServerPlayerEntity) {
                 Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, this);
@@ -152,7 +155,7 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
     @Inject(method = "eat", at = @At("TAIL"))
     protected void eat(PlayerEntity player, Hand hand, ItemStack stack, CallbackInfo ci) {
         if(this.isOwner(player)) {
-            addFavorability(stack.getItem().getFoodComponent().getHunger(), player);
+            addFavorability(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger(), player);
         }
     }
 
@@ -185,7 +188,7 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
             return;
         }
         ItemStack itemStack = player.getStackInHand(hand);
-        if(itemStack.isOf(Items.TOTEM_OF_UNDYING) && !this.hasTotem()) {
+        if(itemStack.isOf(MyItems.TOTEMEOW) && !this.hasTotem()) {
             itemStack.decrement(1);
             this.totem = true;
             player.setStackInHand(hand, itemStack);
@@ -218,10 +221,6 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
         super.tickMovement();
     }
 
-    @Inject(method = "tick", at = @At("HEAD"))
-    public void tick(CallbackInfo ci) {
-        this.setHeadDown(this.songPlaying);
-    }
 
 
     @Override
@@ -241,7 +240,6 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
         var result =  super.damage(source, amount);
         if(!result) return false;
         if(source.getSource() instanceof PlayerEntity player) {
-            System.out.println("Attacker is player:" + player);
             if(this.isOwner(player)) {
                 addFavorability(-(int) (amount * 5), player);
             }
