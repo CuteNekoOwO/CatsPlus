@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixin;
 
-import cuteneko.catsplus.accessor.CatEntityMixinAccessor;
+import cuteneko.catsplus.impl.CatEntityMixinImpl;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CatEntityModel;
 import net.minecraft.client.render.entity.model.OcelotEntityModel;
@@ -21,7 +21,7 @@ public abstract class CatEntityModelMixin<T extends CatEntity>
 
     @Inject(method = "setAngles(Lnet/minecraft/entity/passive/CatEntity;FFFFF)V", at = @At("TAIL"))
     public void setAngles(T catEntity, float f, float g, float h, float i, float j, CallbackInfo ci) {
-        if(!((CatEntityMixinAccessor)catEntity).isSongPlaying()) return;
+        if(!((CatEntityMixinImpl)catEntity).isSongPlaying()) return;
         this.head.pitch = MathHelper.sin(catEntity.age) * 0.3f;
         this.head.yaw = MathHelper.cos(catEntity.age) * -0.3f;
     }

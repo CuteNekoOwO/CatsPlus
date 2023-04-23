@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixin;
 
-import cuteneko.catsplus.accessor.CatEntityMixinAccessor;
+import cuteneko.catsplus.impl.CatEntityMixinImpl;
 import cuteneko.catsplus.item.MyItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
@@ -40,7 +40,7 @@ import java.util.Objects;
 
 
 @Mixin(CatEntity.class)
-public abstract class CatEntityMixin extends TameableEntity implements CatEntityMixinAccessor {
+public abstract class CatEntityMixin extends TameableEntity implements CatEntityMixinImpl {
 
     @Shadow public abstract boolean tryAttack(Entity target);
 
@@ -49,6 +49,7 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
     private int favorability = 0;
 
     private int lives = 9;
+
 
     @Override
     public int getLives() {
@@ -254,7 +255,7 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
 
         @Inject(method = "dropMorningGifts", at = @At("TAIL"))
         private void dropMorningGifts(CallbackInfo ci) {
-            ((CatEntityMixinAccessor)cat).setRespawnable(true);
+            ((CatEntityMixinImpl)cat).setRespawnable(true);
         }
     }
 

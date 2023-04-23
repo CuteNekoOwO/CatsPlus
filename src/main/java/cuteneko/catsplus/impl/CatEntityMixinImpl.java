@@ -1,8 +1,8 @@
-package cuteneko.catsplus.accessor;
+package cuteneko.catsplus.impl;
 
 import net.minecraft.entity.player.PlayerEntity;
 
-public interface CatEntityMixinAccessor {
+public interface CatEntityMixinImpl {
     int getFavorability();
     void setFavorability(int favorability, PlayerEntity player);
     int getLives();
@@ -11,4 +11,5 @@ public interface CatEntityMixinAccessor {
     void setRespawnable(boolean respawnable);
 
     boolean isSongPlaying();
+
 }

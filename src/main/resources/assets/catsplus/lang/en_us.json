@@ -3,5 +3,7 @@
   "item.catsplus.cat_bag": "Cat Bag",
   "item.catsplus.cat_bag.no_cat": "No Cat Inside.",
   "item.catsplus.cat_bag.has_cat": "Cat Inside!",
-  "item.catsplus.totemeow": "Totemeow"
+  "item.catsplus.totemeow": "Totemeow",
+  "effect.catsplus.cattify":"Cattify",
+  "item.minecraft.potion.effect.cattify": "Potion of Cattify"
 }

@@ -7,9 +7,11 @@
     "CatEntityMixin",
     "CatEntityMixin$SleepWithOwnerGoal",
     "CatEntityModelMixin",
+    "EntityModelsMixin",
     "PlayerEntityMixin"
   ],
   "client": [
+    "PlayerEntityRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
