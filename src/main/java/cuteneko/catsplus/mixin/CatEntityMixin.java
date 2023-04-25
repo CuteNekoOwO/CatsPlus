@@ -1,6 +1,7 @@
 package cuteneko.catsplus.mixin;
 
 import cuteneko.catsplus.impl.CatEntityMixinImpl;
+import cuteneko.catsplus.impl.PlayerEntityMixinImpl;
 import cuteneko.catsplus.item.MyItems;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.block.Blocks;
@@ -171,7 +172,7 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
 
     @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setSitting(Z)V"), cancellable = true)
     public void interactMobSetSitting(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        if(player.isSneaking() && !player.hasPassengers()) {
+        if(player.isSneaking() && !player.hasPassengers() && !((PlayerEntityMixinImpl)player).isCat()) {
             ((ServerPlayerEntity)player).networkHandler.sendPacket(new EntityPassengersSetS2CPacket(this));
             this.setSitting(false);
             this.startRiding(player);

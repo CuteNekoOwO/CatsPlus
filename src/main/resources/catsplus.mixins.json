@@ -8,6 +8,8 @@
     "CatEntityMixin$SleepWithOwnerGoal",
     "CatEntityModelMixin",
     "EntityModelsMixin",
+    "LivingEntityMixin",
+    "MobEntityMixin",
     "PlayerEntityMixin"
   ],
   "client": [

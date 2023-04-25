@@ -6,9 +6,12 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class MyEffects {
-    public static StatusEffect CATTIFY =  Registry.register(
-            Registries.STATUS_EFFECT,
+    public static final StatusEffect CATTIFY =  MyEffects.register(
             new Identifier("catsplus", "cattify"),
             new CattifyEffect()
     );
+
+    private static StatusEffect register(Identifier identifier, StatusEffect effect) {
+        return Registry.register(Registries.STATUS_EFFECT, identifier, effect);
+    }
 }

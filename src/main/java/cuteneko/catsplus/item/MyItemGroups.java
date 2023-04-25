@@ -14,4 +14,5 @@ public class MyItemGroups {
                 entries.add(MyItems.TOTEMEOW);
             })
             .build();
+
 }

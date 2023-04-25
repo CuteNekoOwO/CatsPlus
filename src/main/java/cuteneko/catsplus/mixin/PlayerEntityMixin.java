@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.CatVariant;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,6 +17,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PlayerEntity.class)
 public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEntityMixinImpl {
@@ -36,7 +38,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     @Override
     public CatEntity getCat() {
         if(this.cat == null){
-            this.cat = EntityType.CAT.create(this.world);
             int variant = (int) (this.uuid.getLeastSignificantBits() % 11);
             if(variant < 0) variant += 11;
             var key = switch (variant) {
@@ -53,7 +54,9 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
                 case 10 -> CatVariant.ALL_BLACK;
                 default -> throw new IllegalArgumentException("Invalid variant: " + variant);
             };
-            this.cat.setVariant(Registries.CAT_VARIANT.get(key));
+            this.cat = EntityType.CAT.create(this.world);
+            if (this.cat != null) this.cat.setVariant(Registries.CAT_VARIANT.get(key));
+
         }
         return this.cat;
     }
@@ -70,7 +73,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        if(getFirstPassenger() instanceof CatEntity && !isOnGround()) {
+        if(getFirstPassenger() instanceof CatEntity && (!isOnGround() || isCat())) {
             var cat = getFirstPassenger();
             cat.stopRiding();
             if(this.world.isClient()) return;
@@ -89,7 +92,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
             this.standingEyeHeight = this.getStandingEyeHeight();
         } else {
             this.dimensions = this.playerDimensions;
-            this.standingEyeHeight = this.playerEyeHeight;
+            this.standingEyeHeight = this.playerEyeHeight - (this.isSneaking()? 0.25f : 0);
         }
     }
 
@@ -126,5 +129,10 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 //        if(!this.isCat()) return super.getEyeHeight(pose, dimensions);
 //        return getCat().getEyeHeight(this.getPose(), dimensions);
 //    }
+
+    @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
+    private void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
+        if(this.isCat()) cir.setReturnValue(false);
+    }
 
 }
