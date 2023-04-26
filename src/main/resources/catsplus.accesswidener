@@ -11,3 +11,4 @@ extendable method net/minecraft/entity/LivingEntity getEyeHeight (Lnet/minecraft
 accessible field net/minecraft/entity/Entity standingEyeHeight F
 accessible field net/minecraft/entity/Entity dimensions Lnet/minecraft/entity/EntityDimensions;
 accessible field net/minecraft/entity/Entity boundingBox Lnet/minecraft/util/math/Box;
+accessible field net/minecraft/entity/ai/goal/ActiveTargetGoal targetPredicate Lnet/minecraft/entity/ai/TargetPredicate;

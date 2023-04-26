@@ -4,9 +4,11 @@
   "package": "cuteneko.catsplus.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "ActiveTargetGoalMixin",
     "CatEntityMixin",
     "CatEntityMixin$SleepWithOwnerGoal",
     "CatEntityModelMixin",
+    "CreeperEntityMixin",
     "EntityModelsMixin",
     "LivingEntityMixin",
     "MobEntityMixin",
