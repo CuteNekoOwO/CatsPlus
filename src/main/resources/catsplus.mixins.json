@@ -9,7 +9,6 @@
     "CatEntityMixin$SleepWithOwnerGoal",
     "CatEntityModelMixin",
     "CreeperEntityMixin",
-    "EntityModelsMixin",
     "LivingEntityMixin",
     "MobEntityMixin",
     "PlayerEntityMixin"

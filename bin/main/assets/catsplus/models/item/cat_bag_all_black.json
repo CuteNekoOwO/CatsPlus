@@ -1,6 +1,8 @@
 {
-  "parent": "catsplus:item/cat_bag",
+  "parent": "item/generated",
   "textures": {
-    "layer1": "catsplus:item/cat_bag_all_black_overlay"
+    "layer0": "catsplus:item/cat_bag",
+    "layer1": "catsplus:item/cat_all_black",
+    "layer2": "catsplus:item/cat_bag_glass"
   }
 }

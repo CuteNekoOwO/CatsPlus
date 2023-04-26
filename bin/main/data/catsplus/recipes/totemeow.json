@@ -7,13 +7,13 @@
   ],
   "key": {
     "A": {
-      "item": "minecraft:leather"
+      "tag": "minecraft:fishes"
     },
     "B": {
-      "item": "minecraft:glass_pane"
+      "item": "minecraft:totem_of_undying"
     }
   },
   "result": {
-    "item": "catsplus:cat_bag"
+    "item": "catsplus:totemeow"
   }
 }
