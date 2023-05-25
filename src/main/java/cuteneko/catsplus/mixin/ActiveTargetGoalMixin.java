@@ -5,7 +5,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
 import net.minecraft.entity.ai.goal.ActiveTargetGoal;
 import net.minecraft.entity.ai.goal.TrackTargetGoal;
-import net.minecraft.entity.mob.CreeperEntity;
+import net.minecraft.entity.mob.HostileEntity;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -28,7 +28,7 @@ public abstract class ActiveTargetGoalMixin extends TrackTargetGoal{
 
     @Inject(method = "<init>(Lnet/minecraft/entity/mob/MobEntity;Ljava/lang/Class;Z)V", at = @At("TAIL"))
     private void targetGoal(MobEntity mob, Class targetClass, boolean checkVisibility, CallbackInfo ci) {
-        if(!(mob instanceof CreeperEntity)) return;
+        if(!(mob instanceof HostileEntity)) return;
         this.targetPredicate.setPredicate(EXCEPT_CATTIFY_PLAYER);
     }
 }
