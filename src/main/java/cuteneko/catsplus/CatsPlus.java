@@ -13,7 +13,7 @@ public class CatsPlus implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        new MyItemGroups();
+        MyItemGroups.register();
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.TOOLS).register(content -> content.add(MyItems.CAT_BAG));
         MyPotions.registerRecipe();
 

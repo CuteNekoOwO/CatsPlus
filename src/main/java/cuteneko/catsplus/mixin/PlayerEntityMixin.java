@@ -11,7 +11,6 @@ import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.CatVariant;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
-import net.minecraft.util.math.Box;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -64,11 +63,6 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
 
     protected PlayerEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
         super(entityType, world);
-//        if(!this.isCat()) return;
-//        this.cat = new CatEntity(EntityType.CAT, world);
-//        var cat = getCat();
-//        this.setBoundingBox(cat.getBoundingBox());
-//        this.standingEyeHeight = cat.standingEyeHeight;
     }
 
     @Inject(method = "tick", at = @At("HEAD"))
@@ -96,11 +90,11 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
         }
     }
 
-    @Override
-    public Box getVisibilityBoundingBox() {
-        if(!this.isCat()) return super.getVisibilityBoundingBox();
-        return this.getCat().getVisibilityBoundingBox();
-    }
+//    @Override
+//    public Box getVisibilityBoundingBox() {
+//        if(!this.isCat()) return super.getVisibilityBoundingBox();
+//        return this.getCat().getVisibilityBoundingBox();
+//    }
 
 
 
