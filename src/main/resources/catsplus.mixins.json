@@ -7,14 +7,14 @@
     "ActiveTargetGoalMixin",
     "CatEntityMixin",
     "CatEntityMixin$SleepWithOwnerGoal",
-    "CatEntityModelMixin",
     "CreeperEntityMixin",
     "LivingEntityMixin",
     "MobEntityMixin",
     "PlayerEntityMixin"
   ],
   "client": [
-    "PlayerEntityRendererMixin"
+    "PlayerEntityRendererMixin",
+    "CatEntityModelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

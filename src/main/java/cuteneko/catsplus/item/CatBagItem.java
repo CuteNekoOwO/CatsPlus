@@ -25,20 +25,18 @@ import net.minecraft.world.event.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CatBagItem extends Item implements DyeableItem {
 
-//    @Nullable
-//    private CatEntity cat;
     public CatBagItem(Settings settings) {
         super(settings);
-//        this.cat = cat;
     }
 
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if(!stack.hasNbt() || !stack.getNbt().contains("Cat")) {
+        if(!stack.hasNbt() || !Objects.requireNonNull(stack.getNbt()).contains("Cat")) {
             tooltip.add(Text.translatable("item.catsplus.cat_bag.no_cat").formatted(Formatting.DARK_GRAY));
             return;
         }
@@ -51,7 +49,7 @@ public class CatBagItem extends Item implements DyeableItem {
         var stack = context.getStack();
         if(!stack.hasNbt()) return ActionResult.PASS;
         var nbt = stack.getNbt();
-        if(!nbt.contains("Cat")) return ActionResult.PASS;
+        if(!(nbt != null && nbt.contains("Cat"))) return ActionResult.PASS;
         var catNbt = nbt.getCompound("Cat");
         Direction direction = context.getSide();
         var world = context.getWorld();
@@ -63,13 +61,16 @@ public class CatBagItem extends Item implements DyeableItem {
         }
         nbt.remove("Cat");
         stack.setNbt(nbt);
-        context.getPlayer().setStackInHand(context.getHand(), stack);
+        Objects.requireNonNull(context.getPlayer()).setStackInHand(context.getHand(), stack);
         return ActionResult.SUCCESS;
     }
     @Override
     public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
         if(!(entity instanceof CatEntity cat)) return ActionResult.PASS;
-        if(stack.hasNbt() && stack.getNbt().contains("Cat")) return ActionResult.PASS;
+        if(stack.hasNbt()) {
+            assert stack.getNbt() != null;
+            if (stack.getNbt().contains("Cat")) return ActionResult.PASS;
+        }
         if(!cat.isOwner(user)) return ActionResult.FAIL;
         var nbt = stack.getOrCreateNbt();
         var catNbt = new NbtCompound();

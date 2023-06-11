@@ -7,7 +7,7 @@ public interface CatEntityMixinImpl {
     void setFavorability(int favorability, PlayerEntity player);
     int getLives();
     void setLives(int lives);
-    boolean getRespawnable();
+    boolean isRespawnable();
     void setRespawnable(boolean respawnable);
 
     boolean isSongPlaying();

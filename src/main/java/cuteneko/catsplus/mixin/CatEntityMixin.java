@@ -65,7 +65,7 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
     private boolean respawnable = false;
 
     @Override
-    public boolean getRespawnable() {
+    public boolean isRespawnable() {
         return this.respawnable;
     }
 
@@ -256,8 +256,27 @@ public abstract class CatEntityMixin extends TameableEntity implements CatEntity
 
         @Inject(method = "dropMorningGifts", at = @At("TAIL"))
         private void dropMorningGifts(CallbackInfo ci) {
-            ((CatEntityMixinImpl)cat).setRespawnable(true);
+            if(!((CatEntityMixinImpl)cat).isRespawnable()) {
+                cat.world.sendEntityStatus(cat, EntityStatuses.ADD_VILLAGER_HEART_PARTICLES);
+                ((CatEntityMixinImpl)cat).setRespawnable(true);
+            }
         }
+    }
+
+    @Override
+    public void onDeath(DamageSource source) {
+        this.lives--;
+        if(this.isRespawnable() && this.getLives() > 0) {
+            var stack = new ItemStack(MyItems.CAT_SPIRIT);
+            stack.setCount(1);
+            var nbt = stack.getOrCreateNbt();
+            var catNbt = new NbtCompound();
+            this.saveNbt(catNbt);
+            nbt.put("Cat", catNbt);
+            stack.setNbt(nbt);
+            this.dropStack(stack);
+        }
+        super.onDeath(source);
     }
 
 }

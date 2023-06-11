@@ -115,7 +115,7 @@ public abstract class PlayerEntityMixin extends LivingEntity implements PlayerEn
     @Override
     public float getStandingEyeHeight() {
         if(!this.isCat()) return super.getStandingEyeHeight();
-        return getCat().getStandingEyeHeight() + (this.isSneaking()? 0.1f : 0.2f);
+        return getCat().getStandingEyeHeight() + (this.isSneaking()? 0f : 0.2f);
     }
 
 //    @Override

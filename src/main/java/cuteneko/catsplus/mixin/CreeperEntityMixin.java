@@ -28,5 +28,4 @@ public abstract class CreeperEntityMixin extends HostileEntity {
     public void initGoals(CallbackInfo ci) {
         this.goalSelector.add(3, new FleeEntityGoal<>(this, PlayerEntity.class, 6.0f, 1.0, 1.2, CATTIFY));
     }
-
 }

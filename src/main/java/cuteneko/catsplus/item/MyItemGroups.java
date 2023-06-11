@@ -17,6 +17,7 @@ public class MyItemGroups {
         .entries((displayContext, entries) -> {
             entries.add(MyItems.CAT_BAG);
             entries.add(MyItems.TOTEMEOW);
+            entries.add(MyItems.CAT_RESURRECTION_STATION_ITEM);
         })
         .build();
 

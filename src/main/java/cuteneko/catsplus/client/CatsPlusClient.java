@@ -9,6 +9,8 @@ import net.minecraft.client.item.ModelPredicateProviderRegistry;
 import net.minecraft.item.DyeableItem;
 import net.minecraft.util.Identifier;
 
+import java.util.Objects;
+
 @Environment(EnvType.CLIENT)
 public class CatsPlusClient implements ClientModInitializer {
     @Override
@@ -17,7 +19,7 @@ public class CatsPlusClient implements ClientModInitializer {
                 MyItems.CAT_BAG,
                 new Identifier("cat"),
                 (itemStack, clientWorld, livingEntity, i) -> {
-                    if(!itemStack.hasNbt() || !itemStack.getNbt().contains("Cat")) return 0F;
+                    if(!itemStack.hasNbt() || !Objects.requireNonNull(itemStack.getNbt()).contains("Cat")) return 0F;
                     var nbt = itemStack.getNbt().getCompound("Cat");
                     return switch (nbt.getString("variant")) {
                         case "minecraft:tabby" -> 0.05F;
