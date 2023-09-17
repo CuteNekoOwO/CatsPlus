@@ -1,22 +1,24 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "cuteneko.catsplus.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "ActiveTargetGoalMixin",
-    "CatEntityMixin",
-    "CatEntityMixin$SleepWithOwnerGoal",
-    "CreeperEntityMixin",
-    "LivingEntityMixin",
-    "MobEntityMixin",
-    "PlayerEntityMixin"
-  ],
-  "client": [
-    "PlayerEntityRendererMixin",
-    "CatEntityModelMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "minVersion": "0.8",
+    "package": "cuteneko.catsplus.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "ActiveTargetGoalMixin",
+        "CatEntityMixin",
+        "CatEntityMixin$SleepWithOwnerGoal",
+        "CreeperEntityMixin",
+        "LivingEntityMixin",
+        "MobEntityMixin",
+        "PlayerEntityMixin"
+    ],
+    "client": [
+        "BipedEntityModelMixin",
+        "CatEntityModelMixin",
+        "PlayerEntityRendererMixin",
+        "PlayerHeldItemFeatureRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }
