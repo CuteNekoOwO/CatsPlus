@@ -1,9 +1,26 @@
 pluginManagement {
     repositories {
         maven {
-            name = 'Fabric'
-            url = 'https://maven.fabricmc.net/'
+            name = 'Architectury'
+            url = "https://maven.architectury.dev/"
         }
+
+        maven {
+            name = 'Fabric'
+            url = "https://maven.fabricmc.net/"
+        }
+
         gradlePluginPortal()
+
+        maven {
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
+        }
     }
 }
+
+rootProject.name = 'CatsPlus'
+
+include ':common'
+include 'fabric'
+

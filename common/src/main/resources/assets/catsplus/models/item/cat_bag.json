@@ -1,0 +1,81 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "catsplus:item/cat_bag",
+        "layer1": "catsplus:item/cat_bag_glass"
+    },
+    "overrides": [
+        {
+            "predicate": {
+                "catsplus:cat": 0.05
+            },
+            "model": "catsplus:item/cat_bag_tabby"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.1
+            },
+            "model": "catsplus:item/cat_bag_black"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.15
+            },
+            "model": "catsplus:item/cat_bag_red"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.2
+            },
+            "model": "catsplus:item/cat_bag_siamese"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.25
+            },
+            "model": "catsplus:item/cat_bag_british_shorthair"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.3
+            },
+            "model": "catsplus:item/cat_bag_calico"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.35
+            },
+            "model": "catsplus:item/cat_bag_persian"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.4
+            },
+            "model": "catsplus:item/cat_bag_ragdoll"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.45
+            },
+            "model": "catsplus:item/cat_bag_white"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.5
+            },
+            "model": "catsplus:item/cat_bag_jellie"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.55
+            },
+            "model": "catsplus:item/cat_bag_all_black"
+        },
+        {
+            "predicate": {
+                "catsplus:cat": 0.6
+            },
+            "model": "catsplus:item/fabric"
+        }
+    ]
+}

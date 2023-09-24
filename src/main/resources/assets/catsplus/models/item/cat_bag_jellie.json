@@ -1,8 +1,0 @@
-{
-  "parent": "item/generated",
-  "textures": {
-    "layer0": "catsplus:item/cat_bag",
-    "layer1": "catsplus:item/cat_jellie",
-    "layer2": "catsplus:item/cat_bag_glass"
-  }
-}

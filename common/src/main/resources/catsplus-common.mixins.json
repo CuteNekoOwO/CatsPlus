@@ -1,0 +1,32 @@
+{
+    "required": true,
+    "minVersion": "0.8",
+    "package": "cuteneko.catsplus.mixins.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "CatEntityMixin",
+        "PlayerEntityMixin",
+        "cattify.ActiveTargetGoalMixin",
+        "cattify.CreeperEntityMixin",
+        "cattify.EntityMixin",
+        "cattify.LivingEntityMixin",
+        "cattify.MobEntityMixin",
+        "cattify.PlayerEntityMixin",
+        "dancing.AnimalEntityMixin",
+        "dancing.LivingEntityMixin",
+        "favorability.EntityMixin",
+        "totemeow.CatSleepWithOwnerGoal",
+        "totemeow.LivingEntityMixin",
+        "totemeow.TamableEntityMixin"
+    ],
+    "client": [
+        "cattify.PlayerEntityRendererMixin",
+        "dancing.CatEntityModelMixin",
+        "paper_model.BipedEntityModelMixin",
+        "paper_model.PlayerEntityRendererMixin",
+        "paper_model.PlayerHeldItemFeatureRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
