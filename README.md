@@ -1,4 +1,4 @@
-x# CatsPlus
+# CatsPlus
 Make cats in Minecraft more fun!
 
 ## Current Features
