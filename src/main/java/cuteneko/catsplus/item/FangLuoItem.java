@@ -6,14 +6,18 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import net.minecraft.util.Rarity;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
 public class FangLuoItem extends Item {
-    public FangLuoItem(Settings settings) {
-        super(settings);
+    public FangLuoItem() {
+        super(new Item.Settings()
+                .maxCount(1)
+                .fireproof()
+                .rarity(Rarity.EPIC));
     }
 
     @Override

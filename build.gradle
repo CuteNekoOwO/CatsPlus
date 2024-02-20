@@ -25,6 +25,8 @@ allprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
         mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+
+        modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
         modApi "dev.architectury:architectury:${project.architectury_version}"
     }
 
@@ -51,7 +53,6 @@ allprojects {
         if (JavaVersion.current() < javaVersion) {
             toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
         }
-        archivesBaseName = project.archives_base_name
         withSourcesJar()
     }
 
@@ -94,7 +95,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/catsplus.accesswidener")
+    accessWidenerPath = file('src/main/resources/catsplus.accesswidener')
 }
 
 sourceSets.main.resources.srcDir 'src/main/generated'

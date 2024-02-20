@@ -1,5 +1,6 @@
 package cuteneko.catsplus.item;
 
+import cuteneko.catsplus.item.group.ModItemGroups;
 import cuteneko.catsplus.utility.Constants;
 import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.EntityType;
@@ -30,8 +31,11 @@ import java.util.Objects;
 
 public class CatBagItem extends Item implements DyeableItem {
 
-    public CatBagItem(Settings settings) {
-        super(settings);
+    public CatBagItem() {
+        super(new Item.Settings()
+                .fireproof()
+                .maxCount(1)
+                .arch$tab(ModItemGroups.CATS_PLUS));
     }
 
     @Override
@@ -44,7 +48,7 @@ public class CatBagItem extends Item implements DyeableItem {
         var cat = stack.getNbt().getCompound(Constants.TAG_CAT_BAG_CAT);
         if (cat.contains(Constants.TAG_CUSTOM_NAME)) {
             var name = cat.getString(Constants.TAG_CUSTOM_NAME);
-            var component = Text.Serializer.fromJson(name);
+            var component = Text.Serialization.fromJson(name);
 
             if (component != null) {
                 tooltip.add(Text.translatable(Constants.MESSAGE_CAT_BAG_HAS_CAT_NAMED, component.getString()).formatted(Formatting.BLUE));

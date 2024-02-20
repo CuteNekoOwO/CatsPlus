@@ -20,7 +20,7 @@ public class ModLangProviderZHCN extends FabricLanguageProvider {
         builder.add(ModItems.FANG_LUO, "坊洛纸模");
         builder.add(Constants.MESSAGE_FANG_LUO_DESCRIPTION, "Don't be sad, have a hug...");
 
-        builder.add(ModBlocks.CAT_RESURRECTION_STATION, "猫咪复活台");
+        builder.add(ModBlocks.CAT_RESURRECTION_STATION_BLOCK, "猫咪复活台");
 
         builder.add(ModEffects.CATTIFY, "猫咪化");
         builder.add(Constants.MESSAGE_CATTIFY_POTION, "变猫药水");

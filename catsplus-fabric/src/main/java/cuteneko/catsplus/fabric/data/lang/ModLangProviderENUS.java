@@ -20,7 +20,7 @@ public class ModLangProviderENUS extends FabricLanguageProvider {
         builder.add(ModItems.FANG_LUO, "Paper Model of Fang_Luo");
         builder.add(Constants.MESSAGE_FANG_LUO_DESCRIPTION, "Don't be sad, have a hug...");     // Don't change to other language when translating.
 
-        builder.add(ModBlocks.CAT_RESURRECTION_STATION, "Cat Resurrection Station");
+        builder.add(ModBlocks.CAT_RESURRECTION_STATION_BLOCK, "Cat Resurrection Station");
 
         builder.add(ModEffects.CATTIFY, "Cattify");
         builder.add(Constants.MESSAGE_CATTIFY_POTION, "Potion of Cattify");
