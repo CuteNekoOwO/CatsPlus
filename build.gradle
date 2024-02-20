@@ -1,36 +1,41 @@
 plugins {
-    id 'architectury-plugin' version '3.4-SNAPSHOT'
-    id 'dev.architectury.loom' version '1.3-SNAPSHOT' apply false
+    id 'architectury-plugin' version "${architect_plugin_version}"
+    id 'dev.architectury.loom' version "${architectury_loom_version}" apply false
 }
 
-architectury {
-    minecraft = project.minecraft_version
-}
-
-subprojects {
+allprojects {
+    apply plugin: 'architectury-plugin'
     apply plugin: 'dev.architectury.loom'
+    apply plugin: 'maven-publish'
+
+    group = 'cuteneko.catsplus'
+    version = project.mod_version
+
+    architectury {
+        minecraft = project.minecraft_version
+    }
 
     loom {
+    }
+
+    repositories {
+
     }
 
     dependencies {
         minecraft "com.mojang:minecraft:${project.minecraft_version}"
         mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+        modApi "dev.architectury:architectury:${project.architectury_version}"
     }
-}
 
-allprojects {
-    apply plugin: 'java'
-    apply plugin: 'architectury-plugin'
-    apply plugin: 'maven-publish'
-
-    group = project.project_group
-    archivesBaseName = project.archives_base_name
-
-    version = project.mod_version
-
-    repositories {
-
+    configurations {
+        common
+        shadowCommon
+        compileClasspath.extendsFrom common
+        runtimeClasspath.extendsFrom common
+        developmentForge.extendsFrom common
+        developmentFabric.extendsFrom common
+        developmentNeoForge.extendsFrom common
     }
 
     def targetJavaVersion = 17
@@ -61,16 +66,12 @@ allprojects {
 
         var replaceTokens = [
                 minecraft_version: minecraft_version,
-                mod_id: mod_id,
-                mod_name: mod_name,
                 mod_version: mod_version,
-                mod_description: mod_description,
+                forge_version: forge_version,
                 fabric_loader_version: fabric_loader_version,
                 fabric_api_version: fabric_api_version,
-                forge_version: forge_version,
-                next_minecraft_version: next_minecraft_version,
-                next_forge_loader_version: next_forge_loader_version,
-                next_forge_version: next_forge_version
+                neoforge_version: neoforge_version,
+                architectury_version: architectury_version
         ]
 
         inputs.properties replaceTokens
@@ -82,15 +83,18 @@ allprojects {
     }
 
     publishing {
-        publications {
-            mavenCommon(MavenPublication) {
-                artifactId = rootProject.archives_base_name
-                from components.java
-            }
-        }
-
         repositories {
             mavenLocal()
         }
     }
 }
+
+architectury {
+    common(project.enabled_platforms.split(','))
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/catsplus.accesswidener")
+}
+
+sourceSets.main.resources.srcDir 'src/main/generated'
