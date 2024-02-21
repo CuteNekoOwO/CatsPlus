@@ -64,6 +64,7 @@ publishing {
     publications {
         mavenFabric(MavenPublication) {
             artifactId = project.name
+            version = "true".equalsIgnoreCase(System.getenv("MOD_RELEASE")) ? version : "${version}-SNAPSHOT"
             from components.java
         }
     }

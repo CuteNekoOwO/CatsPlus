@@ -1,7 +1,7 @@
 # CatsPlus
-Make cats in Minecraft more fun!
+Make cats in Minecraft more fun!  
 
-## Current Features
+## Features
 - [x] Feed your cats with cooked fish.
 - [x] Hold a cat on your head!
 - [x] Cat bag that can carry your cat in your inventory!
@@ -11,6 +11,7 @@ Make cats in Minecraft more fun!
 
 ## Todo
 - [ ] Forge support.
+- [ ] Respawn your cats which was died.
 - [ ] Better cat favorability system.
 - [ ] Wishing cat.
 - [ ] Cat scratching posts and cat climbing frames for cats to play.

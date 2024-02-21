@@ -9,7 +9,7 @@ allprojects {
     apply plugin: 'maven-publish'
 
     group = 'cuteneko.catsplus'
-    version = project.mod_version
+    version = "${project.mod_version}+mc${project.minecraft_version}"
 
     architectury {
         minecraft = project.minecraft_version
@@ -86,6 +86,21 @@ allprojects {
     publishing {
         repositories {
             mavenLocal()
+
+            maven {
+                name = 'YuluoMaven'
+
+                def ENV = System.getenv();
+
+                def releaseUrl = 'https://maven.yuluo.dev/repository/maven-releases/'
+                def snapshotUrl = 'https://maven.yuluo.dev/repository/maven-snapshots/'
+                url = ENV.MOD_RELEASE ? releaseUrl : snapshotUrl
+
+                credentials {
+                    username ENV.MOD_MAVEN_USER
+                    password ENV.MOD_MAVEN_PASS
+                }
+            }
         }
     }
 }
