@@ -2,6 +2,7 @@ name: Gradle Build
 
 on:
   push:
+  workflow_dispatch:
 
 jobs:
   build-gradle-project:
@@ -21,4 +22,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: build
-          path: build/libs
+          path: |
+            catsplus-fabric/build/libs/catsplus-fabric-[0-9.]+.jar
+          retention-days: 90

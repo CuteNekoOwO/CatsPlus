@@ -6,6 +6,11 @@ pluginManagement {
         }
 
         maven {
+            name = 'NeoForge'
+            url = 'https://maven.neoforged.net/releases/'
+        }
+
+        maven {
             name = 'Fabric'
             url = "https://maven.fabricmc.net/"
         }
@@ -19,8 +24,6 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'CatsPlus'
+rootProject.name = 'catsplus'
 
-include ':common'
-include 'fabric'
-
+include 'catsplus-fabric'

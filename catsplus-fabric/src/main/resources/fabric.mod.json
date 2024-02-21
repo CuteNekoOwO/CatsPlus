@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "catsplus",
+  "version": "${mod_version}",
+  "name": "Cats+",
+  "description": "Make cats in Minecraft more fun!",
+  "authors": [
+    "MeowBot233",
+    "CuteNekoOwO",
+    "qyl27"
+  ],
+  "contact": {
+    "homepage": "https://github.com/CuteNekoOwO",
+    "sources": "https://github.com/CuteNekoOwO/CatsPlus",
+    "issues": "https://github.com/CuteNekoOwO/CatsPlus/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/catsplus/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "cuteneko.catsplus.fabric.client.CatsPlusFabricClient"
+    ],
+    "main": [
+      "cuteneko.catsplus.fabric.CatsPlusFabric"
+    ],
+    "fabric-datagen": [
+      "cuteneko.catsplus.fabric.data.ModDataGen"
+    ]
+  },
+  "mixins": [
+    "catsplus-common.mixins.json",
+    "catsplus-fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric": "*",
+    "minecraft": ">=${minecraft_version}",
+    "architectury": ">=${architectury_version}"
+  }
+}
