@@ -68,7 +68,9 @@ public class CatBagItem extends Item implements DyeableItem {
 
         if (stack.hasCustomName()) {
             var name = stack.getName().getString();
-            if (name.equals("MeowBot233") || name.equals("Fang_Luo")) {
+            if ("MeowBot233".equalsIgnoreCase(name)
+                    || "Fang_Luo".equalsIgnoreCase(name)
+                    || "坊洛".equalsIgnoreCase(name)) {
                 stack.removeCustomName();
                 Objects.requireNonNull(context.getPlayer()).giveItemStack(new ItemStack(ModItems.FANG_LUO));
                 return ActionResult.SUCCESS;
