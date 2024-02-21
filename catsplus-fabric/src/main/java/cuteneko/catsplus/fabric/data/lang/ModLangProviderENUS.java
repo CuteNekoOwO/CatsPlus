@@ -14,15 +14,16 @@ public class ModLangProviderENUS extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(TranslationBuilder builder) {
-        builder.add(ModItems.CAT_BAG, "Cat Bag");
-        builder.add(ModItems.TOTEMEOW, "Totemeow");
-        builder.add(ModItems.CAT_SPIRIT, "Cat Spirit");
-        builder.add(ModItems.FANG_LUO, "Paper Model of Fang_Luo");
-        builder.add(Constants.MESSAGE_FANG_LUO_DESCRIPTION, "Don't be sad, have a hug...");     // Don't change to other language when translating.
+        builder.add(ModItems.CAT_BAG.get(), "Cat Bag");
+        builder.add(ModItems.TOTEMEOW.get(), "Totemeow");
+        builder.add(ModItems.CAT_SPIRIT.get(), "Cat Spirit");
+        builder.add(ModItems.FANG_LUO.get(), "Doll of Fang_Luo");
+        builder.add(Constants.MESSAGE_FANG_LUO_DESCRIPTION_1, "In memory of Fang_Luo, a girl who was passed away because of cancer.");
+        builder.add(Constants.MESSAGE_FANG_LUO_DESCRIPTION_2, "Rest in peace.");
 
-        builder.add(ModBlocks.CAT_RESURRECTION_STATION_BLOCK, "Cat Resurrection Station");
+        builder.add(ModBlocks.CAT_RESURRECTION_STATION_BLOCK.get(), "Cat Resurrection Station");
 
-        builder.add(ModEffects.CATTIFY, "Cattify");
+        builder.add(ModEffects.CATTIFY.get(), "Cattify");
         builder.add(Constants.MESSAGE_CATTIFY_POTION, "Potion of Cattify");
         builder.add(Constants.MESSAGE_CATTIFY_SPLASH_POTION, "Splash Potion of Cattify");
         builder.add(Constants.MESSAGE_CATTIFY_LINGERING_POTION, "Lingering Potion of Cattify");

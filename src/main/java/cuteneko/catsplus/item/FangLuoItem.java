@@ -24,6 +24,6 @@ public class FangLuoItem extends Item {
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
 
-        tooltip.add(Text.translatable(Constants.MESSAGE_FANG_LUO_DESCRIPTION).formatted(Formatting.GRAY));
+        tooltip.add(Text.translatable(Constants.MESSAGE_FANG_LUO_DESCRIPTION_1).formatted(Formatting.GRAY));
     }
 }

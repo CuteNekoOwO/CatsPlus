@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.cattify;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -43,7 +43,7 @@ public abstract class PlayerEntityRendererMixin
             cancellable = true
     )
     private void onRender(AbstractClientPlayerEntity player, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo ci) {
-        var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer(player);
+        var catPlayer = CatsPlusPlatform.getCatPlayer(player);
 
         if (catPlayer.isCat()) {
             var cat = catPlayer.getCatEntity();

@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.totemeow;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.passive.CatEntity;
 import org.spongepowered.asm.mixin.Final;
@@ -18,7 +18,7 @@ public abstract class CatSleepWithOwnerGoal {
 
     @Inject(method = "dropMorningGifts", at = @At("TAIL"))
     private void afterDropMorningGifts(CallbackInfo ci) {
-        var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat(cat);
+        var geniusCat = CatsPlusPlatform.getGeniusCat(cat);
 
         if (!geniusCat.canRespawn()) {
             cat.getWorld().sendEntityStatus(cat, EntityStatuses.ADD_VILLAGER_HEART_PARTICLES);

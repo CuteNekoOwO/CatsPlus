@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.totemeow;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
@@ -24,7 +24,7 @@ public abstract class LivingEntityMixin extends Entity {
     @Inject(method = "tryUseTotem", at = @At("HEAD"), cancellable = true)
     private void beforeTryUseTotem(DamageSource source, CallbackInfoReturnable<Boolean> cir) {
         if ((Object) this instanceof CatEntity cat) {
-            var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat((CatEntity) (Object) this);
+            var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
 
             if (geniusCat.hasTotem()) {
                 cat.setHealth(1.0f);

@@ -13,7 +13,7 @@ public class CatsPlusFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         ModelPredicateProviderRegistry.register(
-                ModItems.CAT_BAG,
+                ModItems.CAT_BAG.get(),
                 new Identifier("catsplus", "cat"),
                 (itemStack, clientWorld, livingEntity, index) -> {
                     if(!itemStack.hasNbt() || !Objects.requireNonNull(itemStack.getNbt()).contains("Cat")) {
@@ -38,8 +38,8 @@ public class CatsPlusFabricClient implements ClientModInitializer {
                 });
 
         ColorProviderRegistry.ITEM.register(
-                ((stack, tintIndex) -> tintIndex > 0 ? -1 :  ((DyeableItem) stack.getItem()).getColor(stack)),
-                ModItems.CAT_BAG
+                ((stack, tintIndex) -> tintIndex > 0 ? -1 : ((DyeableItem) stack.getItem()).getColor(stack)),
+                ModItems.CAT_BAG.get()
         );
     }
 }

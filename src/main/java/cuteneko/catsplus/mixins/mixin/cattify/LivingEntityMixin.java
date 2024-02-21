@@ -19,14 +19,14 @@ public abstract class LivingEntityMixin {
 
     @Inject(method = "getHurtSound", at = @At("RETURN"), cancellable = true)
     private void playHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> cir) {
-        if (hasStatusEffect(ModEffects.CATTIFY)) {
+        if (hasStatusEffect(ModEffects.CATTIFY.get())) {
             cir.setReturnValue(SoundEvents.ENTITY_CAT_HURT);
         }
     }
 
     @Inject(method = "getDeathSound", at = @At("RETURN"), cancellable = true)
     private void playDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (hasStatusEffect(ModEffects.CATTIFY)) {
+        if (hasStatusEffect(ModEffects.CATTIFY.get())) {
             cir.setReturnValue(SoundEvents.ENTITY_CAT_DEATH);
         }
     }

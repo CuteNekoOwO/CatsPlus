@@ -1,12 +1,11 @@
 package cuteneko.catsplus.mixins.mixin.cattify;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
-import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,7 +29,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
 
         if (this.firstUpdate) {
             this.catsplus$playerDimensions = this.dimensions;
@@ -49,7 +48,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     private void beforeGetDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> cir) {
-        var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
         if (catPlayer.isCat()) {
             cir.setReturnValue(catPlayer.getCatEntity().getDimensions(pose));
         }
@@ -57,7 +56,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
     private void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
-        var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
         if (catPlayer.isCat()) {
             cir.setReturnValue(false);
         }

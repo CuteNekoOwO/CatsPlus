@@ -34,15 +34,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_leather",
-      "has_glass_pane",
-      "has_the_recipe"
+      "has_glass_pane"
     ]
   ],
   "rewards": {
     "recipes": [
       "catsplus:cat_bag"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

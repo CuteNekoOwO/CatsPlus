@@ -16,10 +16,10 @@ allprojects {
     }
 
     loom {
+        accessWidenerPath = file('src/main/resources/catsplus.accesswidener')
     }
 
     repositories {
-
     }
 
     dependencies {
@@ -92,10 +92,6 @@ allprojects {
 
 architectury {
     common(project.enabled_platforms.split(','))
-}
-
-loom {
-    accessWidenerPath = file('src/main/resources/catsplus.accesswidener')
 }
 
 sourceSets.main.resources.srcDir 'src/main/generated'

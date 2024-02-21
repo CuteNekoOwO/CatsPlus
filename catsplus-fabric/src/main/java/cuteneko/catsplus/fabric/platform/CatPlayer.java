@@ -25,7 +25,7 @@ public class CatPlayer implements ICatPlayer {
 
     @Override
     public boolean isCat() {
-        return ((IPlayerEntityMixin) player).catsplus$isCat() || player.hasStatusEffect(ModEffects.CATTIFY);
+        return ((IPlayerEntityMixin) player).catsplus$isCat() || player.hasStatusEffect(ModEffects.CATTIFY.get());
     }
 
     @Override

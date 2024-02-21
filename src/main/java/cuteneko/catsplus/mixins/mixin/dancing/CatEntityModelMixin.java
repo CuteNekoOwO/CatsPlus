@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.dancing;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.entity.model.CatEntityModel;
 import net.minecraft.client.render.entity.model.OcelotEntityModel;
@@ -20,7 +20,7 @@ public abstract class CatEntityModelMixin<T extends CatEntity>
 
     @Inject(method = "setAngles(Lnet/minecraft/entity/passive/CatEntity;FFFFF)V", at = @At("TAIL"))
     public void setAngles(T cat, float f, float g, float h, float i, float j, CallbackInfo ci) {
-        var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat(cat);
+        var geniusCat = CatsPlusPlatform.getGeniusCat(cat);
 
         if (geniusCat.isSongPlaying()) {
             this.head.pitch = MathHelper.sin(cat.age) * 0.3f;

@@ -32,7 +32,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> {
                     shift = At.Shift.AFTER),
             cancellable = true)
     private void catsplus$invokeLeftPosingHold(T entity, CallbackInfo ci) {
-        if (entity.getOffHandStack().isOf(ModItems.FANG_LUO)) {
+        if (entity.getOffHandStack().isOf(ModItems.FANG_LUO.get())) {
             catsplus$showHandheldPose(false);
             ci.cancel();
         }
@@ -44,7 +44,7 @@ public abstract class BipedEntityModelMixin<T extends LivingEntity> {
                     shift = At.Shift.AFTER),
             cancellable = true)
     private void catsplus$invokeRightPosingHold(T entity, CallbackInfo ci) {
-        if (entity.getMainHandStack().isOf(ModItems.FANG_LUO)) {
+        if (entity.getMainHandStack().isOf(ModItems.FANG_LUO.get())) {
             catsplus$showHandheldPose(true);
             ci.cancel();
         }

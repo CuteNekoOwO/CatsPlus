@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.totemeow;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import cuteneko.catsplus.item.ModItems;
 import cuteneko.catsplus.utility.GeniusCatHelper;
 import net.minecraft.entity.EntityStatuses;
@@ -38,7 +38,7 @@ public abstract class TamableEntityMixin extends AnimalEntity {
     private void beforeDeath(DamageSource damageSource, CallbackInfo ci) {
         // Todo: qyl27: More plan here.
         if ((Object) this instanceof CatEntity cat) {
-            var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat(cat);
+            var geniusCat = CatsPlusPlatform.getGeniusCat(cat);
 
             geniusCat.setLives(geniusCat.getLives() - 1);
 

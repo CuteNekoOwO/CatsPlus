@@ -15,7 +15,7 @@ public abstract class PlayerEntityRendererMixin {
     @Inject(method = "getArmPose", at = @At("TAIL"), cancellable = true)
     private static void afterGetArmPose(AbstractClientPlayerEntity player, Hand hand,
                                         CallbackInfoReturnable<BipedEntityModel.ArmPose> cir) {
-        if (player.getStackInHand(hand).isOf(ModItems.FANG_LUO)) {
+        if (player.getStackInHand(hand).isOf(ModItems.FANG_LUO.get())) {
             cir.setReturnValue(BipedEntityModel.ArmPose.CROSSBOW_HOLD);
         }
     }

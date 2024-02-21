@@ -32,15 +32,14 @@
   },
   "requirements": [
     [
+      "has_the_recipe",
       "has_tag_minecraft_fishes",
-      "has_totem_of_undying",
-      "has_the_recipe"
+      "has_totem_of_undying"
     ]
   ],
   "rewards": {
     "recipes": [
       "catsplus:totemeow"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

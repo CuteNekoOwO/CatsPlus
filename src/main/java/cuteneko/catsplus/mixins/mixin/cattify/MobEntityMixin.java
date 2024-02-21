@@ -20,7 +20,7 @@ public abstract class MobEntityMixin extends LivingEntity {
 
     @Inject(method = "getAmbientSound", at = @At("RETURN"), cancellable = true)
     private void afterGetAmbientSound(CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.hasStatusEffect(ModEffects.CATTIFY)) {
+        if (this.hasStatusEffect(ModEffects.CATTIFY.get())) {
             cir.setReturnValue(SoundEvents.ENTITY_CAT_STRAY_AMBIENT);
         }
     }

@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.favorability;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CatEntity;
@@ -17,7 +17,7 @@ public abstract class EntityMixin {
         if ((Object) this instanceof CatEntity cat) {
             if (cir.getReturnValue()) {
                 if (source.getSource() instanceof PlayerEntity player) {
-                    var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat(cat);
+                    var geniusCat = CatsPlusPlatform.getGeniusCat(cat);
 
                     if (cat.isOwner(player)) {
                         geniusCat.subFavorability((int) amount * 5, player);

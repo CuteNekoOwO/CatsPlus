@@ -19,6 +19,6 @@ public class ModItemModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator generator) {
-        generator.register(ModItems.TOTEMEOW, Models.GENERATED);
+        generator.register(ModItems.TOTEMEOW.get(), Models.GENERATED);
     }
 }

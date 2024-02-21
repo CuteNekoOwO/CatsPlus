@@ -29,6 +29,7 @@ loom {
 dependencies {
     modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+    modApi "dev.architectury:architectury-fabric:${project.architectury_version}"
 
     common(project(path: ':', configuration: 'namedElements')) { transitive = false }
     shadowCommon(project(path: ':', configuration: 'transformProductionFabric')) { transitive = false }

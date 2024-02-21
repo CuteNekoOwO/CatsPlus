@@ -1,8 +1,9 @@
 package cuteneko.catsplus.mixins.mixin.cattify;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -14,13 +15,13 @@ public abstract class EntityMixin {
     @Shadow
     public abstract boolean isSneaking();
 
-    @Inject(method = "getMountedHeightOffset", at = @At("HEAD"), cancellable = true)
-    private void beforeGetMountedHeightOffset(CallbackInfoReturnable<Double> cir) {
+    @Inject(method = "getPassengerAttachmentPos", at = @At("HEAD"), cancellable = true)
+    private void beforeGetMountedHeightOffset(CallbackInfoReturnable<Vector3f> cir) {
         if ((Object) this instanceof PlayerEntity player) {
-            var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer(player);
+            var catPlayer = CatsPlusPlatform.getCatPlayer(player);
             if (catPlayer.isCat()) {
                 var dimensions = player.getType().getDimensions();
-                cir.setReturnValue((double) dimensions.height * 0.9);
+                cir.setReturnValue(new Vector3f(0, dimensions.height * 0.9F, 0));
             }
         }
     }
@@ -28,9 +29,9 @@ public abstract class EntityMixin {
     @Inject(method = "getStandingEyeHeight", at = @At("HEAD"), cancellable = true)
     private void beforeGetStandingEyeHeight(CallbackInfoReturnable<Float> cir) {
         if ((Object) this instanceof PlayerEntity player) {
-            var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer(player);
+            var catPlayer = CatsPlusPlatform.getCatPlayer(player);
             if (catPlayer.isCat()) {
-                cir.setReturnValue(catPlayer.getCatEntity().getStandingEyeHeight() + (isSneaking() ? 0 : 0.2f));
+                cir.setReturnValue(catPlayer.getCatEntity().getStandingEyeHeight() + (isSneaking() ? 0 : 0.2F));
             }
         }
     }

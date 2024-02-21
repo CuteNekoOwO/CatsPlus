@@ -23,8 +23,8 @@ public abstract class PlayerHeldItemFeatureRendererMixin<T extends PlayerEntity,
     private void catsplus$beforeRenderItem(LivingEntity entity, ItemStack stack,
                                            ModelTransformationMode transformationMode, Arm arm, MatrixStack matrices,
                                            VertexConsumerProvider vertexConsumers, int light, CallbackInfo ci) {
-        if (entity.getMainHandStack().isOf(ModItems.FANG_LUO) || entity.getOffHandStack().isOf(ModItems.FANG_LUO)) {
-            if (!stack.isOf(ModItems.FANG_LUO)) {
+        if (entity.getMainHandStack().isOf(ModItems.FANG_LUO.get()) || entity.getOffHandStack().isOf(ModItems.FANG_LUO.get())) {
+            if (!stack.isOf(ModItems.FANG_LUO.get())) {
                 ci.cancel();
             }
         }

@@ -1,13 +1,9 @@
 package cuteneko.catsplus.mixins.mixin;
 
-import cuteneko.catsplus.CatsPlus;
+import cuteneko.catsplus.CatsPlusPlatform;
 import cuteneko.catsplus.item.ModItems;
 import cuteneko.catsplus.utility.GeniusCatHelper;
-import net.minecraft.block.Blocks;
-import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -40,7 +36,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "eat", at = @At("TAIL"))
     protected void eat(PlayerEntity player, Hand hand, ItemStack stack, CallbackInfo ci) {
-        var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat((CatEntity) (Object) this);
+        var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
 
         if (this.isOwner(player)) {
             geniusCat.addFavorability(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger(), player);
@@ -49,8 +45,8 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setSitting(Z)V"), cancellable = true)
     public void invoke$InteractMobSetSitting(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        var catPlayer = CatsPlus.getInstance().getPlatform().getCatPlayer(player);
-        var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat((CatEntity) (Object) this);
+        var catPlayer = CatsPlusPlatform.getCatPlayer(player);
+        var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
 
         if (player.isSneaking() && !player.hasPassengers() && !catPlayer.isCat()) {
             ((ServerPlayerEntity) player).networkHandler.sendPacket(new EntityPassengersSetS2CPacket(this));
@@ -69,7 +65,7 @@ public abstract class CatEntityMixin extends TameableEntity {
         }
 
         ItemStack itemStack = player.getStackInHand(hand);
-        if (itemStack.isOf(ModItems.TOTEMEOW) && !geniusCat.hasTotem()) {
+        if (itemStack.isOf(ModItems.TOTEMEOW.get()) && !geniusCat.hasTotem()) {
             itemStack.decrement(1);
             geniusCat.setTotem(true);
             player.setStackInHand(hand, itemStack);
@@ -80,7 +76,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V"))
     public void invokeInteractMobSetOwner(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        var geniusCat = CatsPlus.getInstance().getPlatform().getGeniusCat((CatEntity) (Object) this);
+        var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
         geniusCat.setFavorability(50, player);
     }
 }

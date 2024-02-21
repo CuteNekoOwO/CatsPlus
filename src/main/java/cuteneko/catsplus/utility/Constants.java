@@ -27,7 +27,8 @@ public class Constants {
     public static final String MESSAGE_CAT_BAG_NO_CAT = "item.catsplus.cat_bag.no_cat";
     public static final String MESSAGE_CAT_BAG_HAS_CAT = "item.catsplus.cat_bag.has_cat";
     public static final String MESSAGE_CAT_BAG_HAS_CAT_NAMED = "item.catsplus.cat_bag.has_cat_named";
-    public static final String MESSAGE_FANG_LUO_DESCRIPTION = "item.catsplus.fang_luo.desc";
+    public static final String MESSAGE_FANG_LUO_DESCRIPTION_1 = "item.catsplus.fang_luo.desc.1";
+    public static final String MESSAGE_FANG_LUO_DESCRIPTION_2 = "item.catsplus.fang_luo.desc.2";
 
     public static final String MESSAGE_CATTIFY_POTION = "item.minecraft.potion.effect.cattify";
     public static final String MESSAGE_CATTIFY_SPLASH_POTION = "item.minecraft.splash_potion.effect.cattify";
