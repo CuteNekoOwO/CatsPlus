@@ -1,4 +1,4 @@
-package cuteneko.catsplus.fabric.data;
+package cuteneko.catsplus.fabric.data.gen;
 
 import cuteneko.catsplus.item.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

@@ -25,7 +25,7 @@
       "cuteneko.catsplus.fabric.CatsPlusFabric"
     ],
     "fabric-datagen": [
-      "cuteneko.catsplus.fabric.data.ModDataGen"
+      "cuteneko.catsplus.fabric.data.gen.ModDataGen"
     ]
   },
   "mixins": [

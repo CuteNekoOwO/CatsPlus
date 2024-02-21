@@ -1,15 +1,15 @@
-package cuteneko.catsplus.fabric.platform;
+package cuteneko.catsplus.fabric.data;
 
 import cuteneko.catsplus.effect.ModEffects;
 import cuteneko.catsplus.fabric.mixins.impl.IPlayerEntityMixin;
-import cuteneko.catsplus.platform.ICatPlayer;
+import cuteneko.catsplus.data.ICatPlayer;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
-public class CatPlayer implements ICatPlayer {
+public class CatPlayerFabric implements ICatPlayer {
     private final PlayerEntity player;
 
-    public CatPlayer(PlayerEntity player) {
+    public CatPlayerFabric(PlayerEntity player) {
         this.player = player;
     }
 

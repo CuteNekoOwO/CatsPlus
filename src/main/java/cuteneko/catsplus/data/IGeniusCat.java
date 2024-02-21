@@ -1,4 +1,4 @@
-package cuteneko.catsplus.platform;
+package cuteneko.catsplus.data;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
@@ -8,14 +8,13 @@ public interface IGeniusCat {
     void setTotem(boolean totem);
 
     boolean canRespawn();
-    void setCanRespawn(boolean canRespawn);
 
     int getFavorability(PlayerEntity player);
     void setFavorability(int favorability, PlayerEntity player);
     void addFavorability(int value, PlayerEntity player);
     void subFavorability(int value, PlayerEntity player);
 
-    int getLives();
+    int getLives();             // Todo: qyl27: Give it a purpose?
     void setLives(int lives);
 
     boolean isSongPlaying();

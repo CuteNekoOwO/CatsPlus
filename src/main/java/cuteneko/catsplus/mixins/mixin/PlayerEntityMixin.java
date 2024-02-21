@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin;
 
-import cuteneko.catsplus.CatsPlusPlatform;
+import cuteneko.catsplus.CatsPlusData;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.CatEntity;
@@ -19,7 +19,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusData.getCatPlayer((PlayerEntity) (Object) this);
 
         if (getFirstPassenger() instanceof CatEntity
                 && (!isOnGround() || catPlayer.isCat())) {

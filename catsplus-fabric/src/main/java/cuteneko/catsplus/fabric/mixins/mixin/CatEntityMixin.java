@@ -25,8 +25,6 @@ public abstract class CatEntityMixin implements ICatEntityMixin {
     private int catsplus$lives = 0;
     @Unique
     private boolean catsplus$hasTotem = false;
-    @Unique
-    private boolean catsplus$canRespawn = false;
 
     @Unique
     private boolean catsplus$songPlaying = false;
@@ -71,16 +69,6 @@ public abstract class CatEntityMixin implements ICatEntityMixin {
     }
 
     @Override
-    public boolean catsplus$canRespawn() {
-        return catsplus$canRespawn;
-    }
-
-    @Override
-    public void catsplus$setCanRespawn(boolean canRespawn) {
-        catsplus$canRespawn = canRespawn;
-    }
-
-    @Override
     public boolean catsplus$isSongPlaying() {
         return catsplus$songPlaying;
     }
@@ -106,7 +94,6 @@ public abstract class CatEntityMixin implements ICatEntityMixin {
 
         tag.putInt(Constants.TAG_GENIUS_CAT_LIVES, catsplus$lives);
         tag.putBoolean(Constants.TAG_GENIUS_CAT_TOTEM, catsplus$hasTotem);
-        tag.putBoolean(Constants.TAG_GENIUS_CAT_CAN_RESPAWN, catsplus$canRespawn);
 
         var dancing = new NbtCompound();
         dancing.putBoolean(Constants.TAG_GENIUS_CAT_DANCING_SOUND_PLAYING, catsplus$songPlaying);
@@ -131,7 +118,6 @@ public abstract class CatEntityMixin implements ICatEntityMixin {
 
         catsplus$lives = tag.getInt(Constants.TAG_GENIUS_CAT_LIVES);
         catsplus$hasTotem = tag.getBoolean(Constants.TAG_GENIUS_CAT_TOTEM);
-        catsplus$canRespawn = tag.getBoolean(Constants.TAG_GENIUS_CAT_CAN_RESPAWN);
 
         var dancing = tag.getCompound(Constants.TAG_GENIUS_CAT_DANCING);
         catsplus$songPlaying = dancing.getBoolean(Constants.TAG_GENIUS_CAT_DANCING_SOUND_PLAYING);

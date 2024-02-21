@@ -1,7 +1,7 @@
-package cuteneko.catsplus.fabric.data;
+package cuteneko.catsplus.fabric.data.gen;
 
-import cuteneko.catsplus.fabric.data.lang.ModLangProviderENUS;
-import cuteneko.catsplus.fabric.data.lang.ModLangProviderZHCN;
+import cuteneko.catsplus.fabric.data.gen.lang.ModLangProviderENUS;
+import cuteneko.catsplus.fabric.data.gen.lang.ModLangProviderZHCN;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 

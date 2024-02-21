@@ -13,9 +13,6 @@ public interface ICatEntityMixin {
     int catsplus$getLives();
     void catsplus$setLives(int lives);
 
-    boolean catsplus$canRespawn();
-    void catsplus$setCanRespawn(boolean canRespawn);
-
     boolean catsplus$isSongPlaying();
     void catsplus$setSongPlaying(boolean playing);
     BlockPos catsplus$getSongSource();

@@ -1,7 +1,7 @@
-package cuteneko.catsplus.fabric.platform;
+package cuteneko.catsplus.fabric.data;
 
 import cuteneko.catsplus.fabric.mixins.impl.ICatEntityMixin;
-import cuteneko.catsplus.platform.IGeniusCat;
+import cuteneko.catsplus.data.IGeniusCat;
 import net.minecraft.advancement.criterion.Criteria;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.passive.CatEntity;
@@ -9,10 +9,10 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
 
-public class GeniusCat implements IGeniusCat {
+public class GeniusCatFabric implements IGeniusCat {
     private final CatEntity cat;
 
-    public GeniusCat(CatEntity cat) {
+    public GeniusCatFabric(CatEntity cat) {
         this.cat = cat;
     }
 
@@ -28,12 +28,7 @@ public class GeniusCat implements IGeniusCat {
 
     @Override
     public boolean canRespawn() {
-        return ((ICatEntityMixin) cat).catsplus$canRespawn();
-    }
-
-    @Override
-    public void setCanRespawn(boolean canRespawn) {
-        ((ICatEntityMixin) cat).catsplus$setCanRespawn(canRespawn);
+        return hasTotem() || getLives() > 0;
     }
 
     @Override
@@ -45,17 +40,14 @@ public class GeniusCat implements IGeniusCat {
     public void setFavorability(int favorability, PlayerEntity player) {
         ((ICatEntityMixin) cat).catsplus$setFavorability(favorability, player);
 
-        if(getFavorability(player) <= 0) {
+        if (cat.isOwner(player) && getFavorability(player) <= 0) {
             cat.tryAttack(player);
             cat.setOwnerUuid(null);
             cat.setTamed(false);
             cat.setSitting(false);
-            setCanRespawn(false);
+            setLives(0);
             cat.onTamedChanged();
             cat.getWorld().sendEntityStatus(cat, EntityStatuses.ADD_VILLAGER_ANGRY_PARTICLES);
-            if (player instanceof ServerPlayerEntity) {
-                Criteria.TAME_ANIMAL.trigger((ServerPlayerEntity)player, cat);
-            }
         }
     }
 

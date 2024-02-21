@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.cattify;
 
-import cuteneko.catsplus.CatsPlusPlatform;
+import cuteneko.catsplus.CatsPlusData;
 import net.minecraft.entity.EntityDimensions;
 import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.EntityType;
@@ -29,7 +29,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "tick", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusData.getCatPlayer((PlayerEntity) (Object) this);
 
         if (this.firstUpdate) {
             this.catsplus$playerDimensions = this.dimensions;
@@ -48,7 +48,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "getDimensions", at = @At("HEAD"), cancellable = true)
     private void beforeGetDimensions(EntityPose pose, CallbackInfoReturnable<EntityDimensions> cir) {
-        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusData.getCatPlayer((PlayerEntity) (Object) this);
         if (catPlayer.isCat()) {
             cir.setReturnValue(catPlayer.getCatEntity().getDimensions(pose));
         }
@@ -56,7 +56,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @Inject(method = "handleFallDamage", at = @At("HEAD"), cancellable = true)
     private void handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
-        var catPlayer = CatsPlusPlatform.getCatPlayer((PlayerEntity) (Object) this);
+        var catPlayer = CatsPlusData.getCatPlayer((PlayerEntity) (Object) this);
         if (catPlayer.isCat()) {
             cir.setReturnValue(false);
         }

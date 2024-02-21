@@ -1,4 +1,4 @@
-package cuteneko.catsplus.platform;
+package cuteneko.catsplus.data;
 
 import net.minecraft.entity.passive.CatEntity;
 

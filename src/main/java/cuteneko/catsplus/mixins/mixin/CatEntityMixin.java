@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin;
 
-import cuteneko.catsplus.CatsPlusPlatform;
+import cuteneko.catsplus.CatsPlusData;
 import cuteneko.catsplus.item.ModItems;
 import cuteneko.catsplus.utility.GeniusCatHelper;
 import net.minecraft.entity.EntityType;
@@ -36,7 +36,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "eat", at = @At("TAIL"))
     protected void eat(PlayerEntity player, Hand hand, ItemStack stack, CallbackInfo ci) {
-        var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
+        var geniusCat = CatsPlusData.getGeniusCat((CatEntity) (Object) this);
 
         if (this.isOwner(player)) {
             geniusCat.addFavorability(Objects.requireNonNull(stack.getItem().getFoodComponent()).getHunger(), player);
@@ -45,8 +45,8 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setSitting(Z)V"), cancellable = true)
     public void invoke$InteractMobSetSitting(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        var catPlayer = CatsPlusPlatform.getCatPlayer(player);
-        var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
+        var catPlayer = CatsPlusData.getCatPlayer(player);
+        var geniusCat = CatsPlusData.getGeniusCat((CatEntity) (Object) this);
 
         if (player.isSneaking() && !player.hasPassengers() && !catPlayer.isCat()) {
             ((ServerPlayerEntity) player).networkHandler.sendPacket(new EntityPassengersSetS2CPacket(this));
@@ -76,7 +76,7 @@ public abstract class CatEntityMixin extends TameableEntity {
 
     @Inject(method = "interactMob", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/passive/CatEntity;setOwner(Lnet/minecraft/entity/player/PlayerEntity;)V"))
     public void invokeInteractMobSetOwner(PlayerEntity player, Hand hand, CallbackInfoReturnable<ActionResult> cir) {
-        var geniusCat = CatsPlusPlatform.getGeniusCat((CatEntity) (Object) this);
+        var geniusCat = CatsPlusData.getGeniusCat((CatEntity) (Object) this);
         geniusCat.setFavorability(50, player);
     }
 }
