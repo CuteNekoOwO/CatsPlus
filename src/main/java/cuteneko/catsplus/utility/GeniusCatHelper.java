@@ -1,19 +1,12 @@
 package cuteneko.catsplus.utility;
 
-import net.minecraft.entity.Entity;
+import cuteneko.catsplus.tag.ModItemTags;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.Items;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.recipe.Ingredient;
 
 public class GeniusCatHelper {
-    // Todo: qyl27: Change it to a cooked_fish tag.
-    public static final Ingredient TAMED_CAT_FOODS = Ingredient.ofItems(
-            Items.COD,
-            Items.SALMON,
-            Items.COOKED_COD,
-            Items.COOKED_SALMON,
-            Items.TROPICAL_FISH);
+    public static final Ingredient TAMED_CAT_FOODS = Ingredient.fromTag(ModItemTags.COOKED_FISHES);
 
     public static void produceParticles(LivingEntity entity, ParticleEffect parameters) {
         for (int i = 0; i < 5; ++i) {

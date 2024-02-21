@@ -34,4 +34,6 @@ public abstract class PlayerEntityMixin extends LivingEntity {
             cat.addVelocity(vel.x * 5, vel.y, vel.z * 5);
         }
     }
+
+    // Todo: qyl27: Right click tamed cat to increase favorability.
 }
