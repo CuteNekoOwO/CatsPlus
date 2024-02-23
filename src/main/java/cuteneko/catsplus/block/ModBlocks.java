@@ -20,5 +20,5 @@ public class ModBlocks {
     }
 
     public static final RegistrySupplier<Block> CAT_RESURRECTION_STATION_BLOCK = BLOCKS.register("cat_resurrection_station", () -> new CatResurrectionStationBlock(AbstractBlock.Settings.create().hardness(5f)));
-    public static final RegistrySupplier<Item> CAT_RESURRECTION_STATION = BLOCK_ITEMS.register("cat_resurrection_station", () -> new BlockItem(CAT_RESURRECTION_STATION_BLOCK.get(), new Item.Settings().arch$tab(ModItemGroups.CATS_PLUS)));
+    public static final RegistrySupplier<Item> CAT_RESURRECTION_STATION = BLOCK_ITEMS.register("cat_resurrection_station", () -> new BlockItem(CAT_RESURRECTION_STATION_BLOCK.get(), new Item.Settings()));
 }

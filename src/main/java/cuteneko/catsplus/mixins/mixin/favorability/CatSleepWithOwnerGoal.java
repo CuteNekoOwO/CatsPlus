@@ -1,4 +1,4 @@
-package cuteneko.catsplus.mixins.mixin.totemeow;
+package cuteneko.catsplus.mixins.mixin.favorability;
 
 import cuteneko.catsplus.CatsPlusData;
 import net.minecraft.entity.EntityStatuses;

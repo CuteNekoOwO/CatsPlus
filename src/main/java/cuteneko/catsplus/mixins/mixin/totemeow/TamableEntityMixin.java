@@ -48,7 +48,8 @@ public abstract class TamableEntityMixin extends AnimalEntity {
                 spirit.setDeathTime(OffsetDateTime.now());
                 spirit.setDeathMessage(this.getDamageTracker().getDeathMessage());
 
-                player.giveItemStack(stack);
+                // Todo: qyl27: how about player offline?
+//                player.giveItemStack(stack);
             }
         }
     }

@@ -11,11 +11,14 @@ Make cats in Minecraft more fun!
 
 ## Todo
 - [ ] Forge support.
-- [ ] Respawn your cats which was died.
+- [ ] NeoForge support.
+- [ ] Collect cats soul when your cat dies.
+- [ ] Respawn your cat by cat soul.
 - [ ] Better cat favorability system.
-- [ ] Wishing cat.
+- [ ] Make wish to your cat.
 - [ ] Cat scratching posts and cat climbing frames for cats to play.
-- [ ] Tell me your ideas.
+- [ ] Paper box for cats (or cattified players)! 
+- [ ] More idea? **Feel free to open an issue.**
 
 ## About MeowBot233
 MeowBot233, the creator of CatsPlus, was passed away on September 16, 2023, due to Ewing's sarcoma.   

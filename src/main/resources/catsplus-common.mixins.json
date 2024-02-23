@@ -15,7 +15,7 @@
         "dancing.AnimalEntityMixin",
         "dancing.LivingEntityMixin",
         "favorability.EntityMixin",
-        "totemeow.CatSleepWithOwnerGoal",
+        "favorability.CatSleepWithOwnerGoal",
         "totemeow.LivingEntityMixin",
         "totemeow.TamableEntityMixin"
     ],
