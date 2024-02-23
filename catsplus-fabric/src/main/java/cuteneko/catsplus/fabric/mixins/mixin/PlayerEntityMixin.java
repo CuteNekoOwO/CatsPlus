@@ -88,12 +88,12 @@ public abstract class PlayerEntityMixin extends LivingEntity implements IPlayerE
 
         tag.putBoolean(Constants.TAG_CAT_PLAYER_IS_CAT, catsplus$isCat);
 
-        nbt.put(Constants.TAG_CAT_PLAYER_DATA, tag);
+        nbt.put(Constants.CAP_CAT_PLAYER.toString(), tag);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void read(NbtCompound nbt, CallbackInfo ci) {
-        var tag = nbt.getCompound(Constants.TAG_CAT_PLAYER_DATA);
+        var tag = nbt.getCompound(Constants.CAP_CAT_PLAYER.toString());
 
         var catTag = tag.getCompound(Constants.TAG_CAT_PLAYER_INNER_CAT);
         catsplus$getCatEntity().readNbt(catTag);

@@ -5,39 +5,28 @@ plugins {
 
 architectury {
     platformSetupLoomIde()
-    fabric()
+    forge()
 }
 
 loom {
     accessWidenerPath = project(':').loom.accessWidenerPath
 
-    runs {
-        data {
-            inherit client
-
-            name 'Data Generation'
-
-            vmArg '-Dfabric-api.datagen'
-            vmArg "-Dfabric-api.datagen.output-dir=${file("../src/main/generated")}"
-            vmArg '-Dfabric-api.datagen.modid=catsplus'
-
-            runDir 'build/datagen'
-        }
+    forge {
+        convertAccessWideners = true
+        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
     }
 }
 
 dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
-    modApi "dev.architectury:architectury-fabric:${project.architectury_version}"
-
-    modRuntimeOnly "com.terraformersmc:modmenu:${project.mod_menu_version}"
+    forge "net.minecraftforge:forge:${rootProject.minecraft_version}-${rootProject.forge_version}"
+    modApi "dev.architectury:architectury-forge:${project.architectury_version}"
 
     common(project(path: ':', configuration: 'namedElements')) { transitive = false }
     shadowCommon(project(path: ':', configuration: 'transformProductionFabric')) { transitive = false }
 }
 
 shadowJar {
+    exclude 'fabric.mod.json'
     exclude 'architectury.common.json'
 
     configurations = [project.configurations.shadowCommon]

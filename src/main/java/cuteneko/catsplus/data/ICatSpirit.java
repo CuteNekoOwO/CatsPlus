@@ -1,5 +1,6 @@
 package cuteneko.catsplus.data;
 
+import cuteneko.catsplus.data.abstracted.ICatContainerItem;
 import net.minecraft.text.Text;
 
 import java.time.OffsetDateTime;

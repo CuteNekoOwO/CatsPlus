@@ -46,7 +46,7 @@ public abstract class CatEntityMixin implements ICatEntityMixin {
 
     @Override
     public int catsplus$getFavorability(PlayerEntity player) {
-        if (catsplus$favorability.containsKey(player.getUuid())) {
+        if (!catsplus$favorability.containsKey(player.getUuid())) {
             catsplus$favorability.put(player.getUuid(), 0);
         }
 
@@ -109,12 +109,12 @@ public abstract class CatEntityMixin implements ICatEntityMixin {
         }
         tag.put(Constants.TAG_GENIUS_CAT_FAVORABILITY, favorability);
 
-        nbt.put(Constants.TAG_GENIUS_CAT_DATA, tag);
+        nbt.put(Constants.CAP_GENIUS_CAT.toString(), tag);
     }
 
     @Inject(method = "readCustomDataFromNbt", at = @At("HEAD"))
     private void read(NbtCompound nbt, CallbackInfo ci) {
-        var tag = nbt.getCompound(Constants.TAG_GENIUS_CAT_DATA);
+        var tag = nbt.getCompound(Constants.CAP_GENIUS_CAT.toString());
 
         catsplus$lives = tag.getInt(Constants.TAG_GENIUS_CAT_LIVES);
         catsplus$hasTotem = tag.getBoolean(Constants.TAG_GENIUS_CAT_TOTEM);

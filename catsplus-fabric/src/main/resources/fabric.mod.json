@@ -19,7 +19,7 @@
   "environment": "*",
   "entrypoints": {
     "client": [
-      "cuteneko.catsplus.fabric.client.CatsPlusFabricClient"
+      "cuteneko.catsplus.fabric.CatsPlusFabric"
     ],
     "main": [
       "cuteneko.catsplus.fabric.CatsPlusFabric"

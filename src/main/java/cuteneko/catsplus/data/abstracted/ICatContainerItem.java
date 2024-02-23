@@ -1,4 +1,4 @@
-package cuteneko.catsplus.data;
+package cuteneko.catsplus.data.abstracted;
 
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.text.Text;

@@ -1,7 +1,20 @@
 plugins {
     id 'architectury-plugin' version "${architect_plugin_version}"
-    id 'dev.architectury.loom' version "${architectury_loom_version}" apply false
+    id 'dev.architectury.loom' version "${architectury_loom_version}"
 }
+
+architectury {
+    minecraft = project.minecraft_version
+    common(project.enabled_platforms.split(','))
+}
+
+loom {
+    runConfigs.configureEach {
+        ideConfigGenerated = true
+    }
+}
+
+sourceSets.main.resources.srcDir 'src/main/generated'
 
 allprojects {
     apply plugin: 'architectury-plugin'
@@ -20,6 +33,12 @@ allprojects {
     }
 
     repositories {
+        repositories {
+            maven {
+                name = 'Mod Menu'
+                url = 'https://maven.terraformersmc.com/releases'
+            }
+        }
     }
 
     dependencies {
@@ -38,6 +57,7 @@ allprojects {
         developmentForge.extendsFrom common
         developmentFabric.extendsFrom common
         developmentNeoForge.extendsFrom common
+        developmentQuilt.extendsFrom common
     }
 
     def targetJavaVersion = 17
@@ -68,6 +88,7 @@ allprojects {
         var replaceTokens = [
                 minecraft_version: minecraft_version,
                 mod_version: mod_version,
+                forge_loader_version: forge_loader_version,
                 forge_version: forge_version,
                 fabric_loader_version: fabric_loader_version,
                 fabric_api_version: fabric_api_version,
@@ -104,9 +125,3 @@ allprojects {
         }
     }
 }
-
-architectury {
-    common(project.enabled_platforms.split(','))
-}
-
-sourceSets.main.resources.srcDir 'src/main/generated'

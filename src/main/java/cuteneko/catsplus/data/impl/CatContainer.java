@@ -1,6 +1,6 @@
 package cuteneko.catsplus.data.impl;
 
-import cuteneko.catsplus.data.ICatContainerItem;
+import cuteneko.catsplus.data.abstracted.ICatContainerItem;
 import cuteneko.catsplus.utility.Constants;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.passive.CatEntity;

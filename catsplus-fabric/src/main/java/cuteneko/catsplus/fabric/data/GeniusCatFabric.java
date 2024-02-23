@@ -27,11 +27,6 @@ public class GeniusCatFabric implements IGeniusCat {
     }
 
     @Override
-    public boolean canRespawn() {
-        return hasTotem() || getLives() > 0;
-    }
-
-    @Override
     public int getFavorability(PlayerEntity player) {
         return ((ICatEntityMixin) cat).catsplus$getFavorability(player);
     }
@@ -40,25 +35,18 @@ public class GeniusCatFabric implements IGeniusCat {
     public void setFavorability(int favorability, PlayerEntity player) {
         ((ICatEntityMixin) cat).catsplus$setFavorability(favorability, player);
 
-        if (cat.isOwner(player) && getFavorability(player) <= 0) {
+        if (getFavorability(player) <= 0) {
             cat.tryAttack(player);
-            cat.setOwnerUuid(null);
-            cat.setTamed(false);
-            cat.setSitting(false);
-            setLives(0);
-            cat.onTamedChanged();
             cat.getWorld().sendEntityStatus(cat, EntityStatuses.ADD_VILLAGER_ANGRY_PARTICLES);
+
+            if (cat.isOwner(player)) {
+                cat.setOwnerUuid(null);
+                cat.setTamed(false);
+                cat.setSitting(false);
+                setLives(0);
+                cat.onTamedChanged();
+            }
         }
-    }
-
-    @Override
-    public void addFavorability(int value, PlayerEntity player) {
-        setFavorability(getFavorability(player) + value, player);
-    }
-
-    @Override
-    public void subFavorability(int value, PlayerEntity player) {
-        setFavorability(getFavorability(player) - value, player);
     }
 
     @Override

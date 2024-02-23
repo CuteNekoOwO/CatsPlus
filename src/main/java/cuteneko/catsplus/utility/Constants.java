@@ -1,5 +1,8 @@
 package cuteneko.catsplus.utility;
 
+import cuteneko.catsplus.CatsPlus;
+import net.minecraft.util.Identifier;
+
 public class Constants {
     public static final String TAG_CAT_CONTAINER = "Cat";
 
@@ -14,11 +17,11 @@ public class Constants {
     public static final String TAG_DEATH_TIME = "deathAt";
     public static final String TAG_DEATH_MESSAGE = "deathMessage";
 
-    public static final String TAG_CAT_PLAYER_DATA = "catsplus:cat_player_data";
+    public static final Identifier CAP_CAT_PLAYER = new Identifier(CatsPlus.MODID, "cat_player_data");
     public static final String TAG_CAT_PLAYER_INNER_CAT = "innerCat";
     public static final String TAG_CAT_PLAYER_IS_CAT = "isCat";
 
-    public static final String TAG_GENIUS_CAT_DATA = "catsplus:genius_cat_data";
+    public static final Identifier CAP_GENIUS_CAT = new Identifier(CatsPlus.MODID, "genius_cat_data");
     public static final String TAG_GENIUS_CAT_LIVES = "lives";
     public static final String TAG_GENIUS_CAT_TOTEM = "totem";
     public static final String TAG_GENIUS_CAT_CAN_RESPAWN = "respawn";

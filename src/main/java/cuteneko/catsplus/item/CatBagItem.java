@@ -101,6 +101,7 @@ public class CatBagItem extends Item implements DyeableItem {
                     cat.setSitting(false);
                     bag.setCat(cat);
                     cat.discard();
+                    user.setStackInHand(hand, stack);
                     return ActionResult.SUCCESS;
                 } else {
                     return ActionResult.FAIL;
