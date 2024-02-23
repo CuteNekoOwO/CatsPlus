@@ -11,11 +11,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Inject(method = "setNearbySongPlaying", at = @At("HEAD"))
-    private void beforeSetNearbySongPlaying(BlockPos songPosition, boolean playing, CallbackInfo ci) {
+    @Inject(method = "setNearbySongPlaying", at = @At("TAIL"))
+    private void afterSetNearbySongPlaying(BlockPos songPosition, boolean playing, CallbackInfo ci) {
         if ((Object) this instanceof CatEntity cat) {
             var geniusCat = CatsPlusData.getGeniusCat(cat);
-            geniusCat.songStartPlay(songPosition);
+
+            if (playing) {
+                geniusCat.songStartPlay(songPosition);
+            } else {
+                geniusCat.songStopPlay();
+            }
         }
     }
 }
