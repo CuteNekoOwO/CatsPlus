@@ -5,6 +5,8 @@ import cuteneko.catsplus.effect.ModEffects;
 import cuteneko.catsplus.effect.potion.ModPotions;
 import cuteneko.catsplus.item.ModItems;
 import cuteneko.catsplus.item.group.ModItemGroups;
+import cuteneko.catsplus.listener.CatSpiritListener;
+import cuteneko.catsplus.listener.ModListeners;
 import cuteneko.catsplus.utility.Constants;
 import dev.architectury.registry.item.ItemPropertiesRegistry;
 import net.minecraft.util.Identifier;
@@ -30,6 +32,7 @@ public class CatsPlus {
         ModItems.register();
         ModEffects.register();
         ModPotions.register();
+        ModListeners.register();
     }
 
     public void initClient() {

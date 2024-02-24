@@ -21,6 +21,9 @@ public class Constants {
     public static final String TAG_CAT_PLAYER_INNER_CAT = "innerCat";
     public static final String TAG_CAT_PLAYER_IS_CAT = "isCat";
 
+    public static final Identifier TAG_SERVER_HAS_CAT = new Identifier(CatsPlus.MODID, "cat_server_data");
+    public static final String TAG_SERVER_CAT_SPIRITS = "catSpirits";
+
     public static final Identifier CAP_GENIUS_CAT = new Identifier(CatsPlus.MODID, "genius_cat_data");
     public static final String TAG_GENIUS_CAT_LIVES = "lives";
     public static final String TAG_GENIUS_CAT_TOTEM = "totem";
@@ -48,4 +51,5 @@ public class Constants {
     public static final String MESSAGE_CATTIFY_LINGERING_POTION = "item.minecraft.lingering_potion.effect.cattify";
     public static final String MESSAGE_CATTIFY_POTION_ARROW = "item.minecraft.tipped_arrow.effect.cattify";
 
+    public static final String MESSAGE_CAT_DIED = "message.catsplus.cat_died";
 }

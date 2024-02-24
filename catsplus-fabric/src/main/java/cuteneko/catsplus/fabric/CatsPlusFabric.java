@@ -24,7 +24,7 @@ public class CatsPlusFabric implements ModInitializer, ClientModInitializer {
         mod.initClient();
 
         ColorProviderRegistry.ITEM.register(
-                ((stack, tintIndex) -> tintIndex > 0 ? -1 : ((DyeableItem) stack.getItem()).getColor(stack)),
+                (stack, tintIndex) -> tintIndex == 0 ? ((DyeableItem) stack.getItem()).getColor(stack) : -1,
                 ModItems.CAT_BAG.get()
         );
     }

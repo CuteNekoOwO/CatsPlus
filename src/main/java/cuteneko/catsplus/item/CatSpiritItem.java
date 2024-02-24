@@ -1,6 +1,7 @@
 package cuteneko.catsplus.item;
 
 import cuteneko.catsplus.CatsPlusData;
+import cuteneko.catsplus.item.group.ModItemGroups;
 import cuteneko.catsplus.utility.Constants;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,7 +13,8 @@ public class CatSpiritItem extends Item {
         super(new Item.Settings()
                 .maxCount(1)
                 .fireproof()
-                .rarity(Rarity.EPIC));
+                .rarity(Rarity.EPIC)
+                .arch$tab(ModItemGroups.CATS_PLUS));
     }
 
     @Override

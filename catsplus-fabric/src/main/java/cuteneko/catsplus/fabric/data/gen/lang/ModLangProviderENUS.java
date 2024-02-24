@@ -42,5 +42,7 @@ public class ModLangProviderENUS extends FabricLanguageProvider {
         builder.add(Constants.MESSAGE_CAT_SPIRIT_DESCRIPTION_TIME_LABEL, "Dead at: ");
         builder.add(Constants.MESSAGE_CAT_SPIRIT_DESCRIPTION_TIME_PATTERN, "%2$s/%3$s/%1$s %4$s:%5$s:%6$s");
         builder.add(Constants.MESSAGE_CAT_SPIRIT_DESCRIPTION_TIME_LONG_TIME_AGO, "Long time ago");
+
+        builder.add(Constants.MESSAGE_CAT_DIED, "Your cat was died, here is its spirit.");
     }
 }

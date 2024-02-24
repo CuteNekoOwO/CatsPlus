@@ -1,16 +1,19 @@
 package cuteneko.catsplus;
 
-import cuteneko.catsplus.data.ICatSpirit;
+import cuteneko.catsplus.data.*;
+import cuteneko.catsplus.data.impl.CatServer;
 import cuteneko.catsplus.data.impl.CatSpirit;
 import cuteneko.catsplus.item.ModItems;
-import cuteneko.catsplus.data.ICatBag;
-import cuteneko.catsplus.data.ICatPlayer;
-import cuteneko.catsplus.data.IGeniusCat;
 import cuteneko.catsplus.data.impl.CatBag;
+import cuteneko.catsplus.utility.Constants;
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.World;
+
+import java.util.Objects;
 
 public class CatsPlusData {
     @ExpectPlatform
@@ -37,5 +40,10 @@ public class CatsPlusData {
         }
 
         return new CatSpirit(spirit);
+    }
+
+    public static ICatServer getCatServer(MinecraftServer server) {
+        return Objects.requireNonNull(server.getWorld(World.OVERWORLD)).getPersistentStateManager()
+                .getOrCreate(CatServer.TYPE, Constants.TAG_SERVER_HAS_CAT.toString());
     }
 }

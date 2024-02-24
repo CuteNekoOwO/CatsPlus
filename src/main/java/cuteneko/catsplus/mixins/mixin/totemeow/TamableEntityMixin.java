@@ -2,6 +2,7 @@ package cuteneko.catsplus.mixins.mixin.totemeow;
 
 import cuteneko.catsplus.CatsPlusData;
 import cuteneko.catsplus.item.ModItems;
+import cuteneko.catsplus.utility.Constants;
 import cuteneko.catsplus.utility.GeniusCatHelper;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.EntityType;
@@ -12,6 +13,8 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
+import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.text.Text;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -39,17 +42,26 @@ public abstract class TamableEntityMixin extends AnimalEntity {
     @Inject(method = "onDeath", at = @At("RETURN"))
     private void afterDeath(DamageSource damageSource, CallbackInfo ci) {
         if ((Object) this instanceof CatEntity cat) {
+            if (cat.getOwnerUuid() == null) {
+                return;
+            }
+
+            var stack = new ItemStack(ModItems.CAT_SPIRIT);
+            var spirit = CatsPlusData.getCatSpirit(stack);
+
+            spirit.setCat(cat);
+            spirit.setDeathTime(OffsetDateTime.now());
+            spirit.setDeathMessage(getDamageTracker().getDeathMessage());
+
             var owner = cat.getOwner();
-            if (owner instanceof PlayerEntity player) {
-                var stack = new ItemStack(ModItems.CAT_SPIRIT);
-                var spirit = CatsPlusData.getCatSpirit(stack);
+            if (owner == null) {
+                CatsPlusData.getCatServer(cat.getServer()).addCatSpirit(cat.getOwnerUuid(), stack);
+                return;
+            }
 
-                spirit.setCat(cat);
-                spirit.setDeathTime(OffsetDateTime.now());
-                spirit.setDeathMessage(this.getDamageTracker().getDeathMessage());
-
-                // Todo: qyl27: how about player offline?
-//                player.giveItemStack(stack);
+            if (owner instanceof ServerPlayerEntity player) {
+                player.giveItemStack(stack);
+                player.sendMessage(Text.translatable(Constants.MESSAGE_CAT_DIED));
             }
         }
     }

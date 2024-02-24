@@ -42,5 +42,7 @@ public class ModLangProviderZHCN extends FabricLanguageProvider {
         builder.add(Constants.MESSAGE_CAT_SPIRIT_DESCRIPTION_TIME_LABEL, "卒于：");
         builder.add(Constants.MESSAGE_CAT_SPIRIT_DESCRIPTION_TIME_PATTERN, "%1$s年%2$s月%3$s日 %4$s:%5$s:%6$s");
         builder.add(Constants.MESSAGE_CAT_SPIRIT_DESCRIPTION_TIME_LONG_TIME_AGO, "很久以前");
+
+        builder.add(Constants.MESSAGE_CAT_DIED, "你的猫猫死掉了，它的灵魂回到了你的身旁。");
     }
 }
