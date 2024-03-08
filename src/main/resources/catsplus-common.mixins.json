@@ -13,9 +13,10 @@
         "cattify.MobEntityMixin",
         "cattify.PlayerEntityMixin",
         "dancing.AnimalEntityMixin",
+        "dancing.CatEntityMixin",
         "dancing.LivingEntityMixin",
-        "favorability.EntityMixin",
         "favorability.CatSleepWithOwnerGoal",
+        "favorability.EntityMixin",
         "totemeow.LivingEntityMixin",
         "totemeow.TamableEntityMixin"
     ],

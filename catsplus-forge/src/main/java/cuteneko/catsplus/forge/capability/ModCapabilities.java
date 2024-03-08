@@ -14,13 +14,14 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = CatsPlus.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ModCapabilities {
-    public static Capability<IGeniusCat> GENIUS_CAT = CapabilityManager.get(new CapabilityToken<>() {});
-    public static Capability<ICatPlayer> CAT_PLAYER = CapabilityManager.get(new CapabilityToken<>() {});
+    public static Capability<GeniusCatCapability> GENIUS_CAT = CapabilityManager.get(new CapabilityToken<>() {});
+    public static Capability<CatPlayerCapability> CAT_PLAYER = CapabilityManager.get(new CapabilityToken<>() {});
 
     @SubscribeEvent
     public void registerCaps(RegisterCapabilitiesEvent event) {
@@ -40,6 +41,19 @@ public class ModCapabilities {
             var provider = new CatPlayerProvider(player);
             event.addCapability(Constants.CAP_CAT_PLAYER, provider);
             event.addListener(provider::invalidate);
+        }
+    }
+
+    @SubscribeEvent
+    public void onPlayerClone(PlayerEvent.Clone event) {
+        if (!event.isWasDeath()) {
+            var original = event.getOriginal();
+            var player = event.getEntity();
+            player.getCapability(CAT_PLAYER)
+                    .orElse(new CatPlayerCapability(player))
+                    .deserializeNBT(original.getCapability(CAT_PLAYER)
+                            .orElse(new CatPlayerCapability(original))
+                            .serializeNBT());
         }
     }
 }

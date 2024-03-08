@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.dancing;
 
-import cuteneko.catsplus.CatsPlusData;
+import cuteneko.catsplus.mixins.bridge.dancing.IMusicianCat;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.util.math.BlockPos;
@@ -14,12 +14,10 @@ public abstract class LivingEntityMixin {
     @Inject(method = "setNearbySongPlaying", at = @At("TAIL"))
     private void afterSetNearbySongPlaying(BlockPos songPosition, boolean playing, CallbackInfo ci) {
         if ((Object) this instanceof CatEntity cat) {
-            var geniusCat = CatsPlusData.getGeniusCat(cat);
-
             if (playing) {
-                geniusCat.songStartPlay(songPosition);
+                ((IMusicianCat) cat).catsplus$setSoundSource(songPosition);
             } else {
-                geniusCat.songStopPlay();
+                ((IMusicianCat) cat).catsplus$setSoundSource(null);
             }
         }
     }

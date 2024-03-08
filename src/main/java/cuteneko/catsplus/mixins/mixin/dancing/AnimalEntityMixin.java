@@ -1,6 +1,6 @@
 package cuteneko.catsplus.mixins.mixin.dancing;
 
-import cuteneko.catsplus.CatsPlusData;
+import cuteneko.catsplus.mixins.bridge.dancing.IMusicianCat;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.passive.AnimalEntity;
 import net.minecraft.entity.passive.CatEntity;
@@ -14,12 +14,12 @@ public abstract class AnimalEntityMixin {
     @Inject(method = "tickMovement", at = @At("TAIL"))
     private void afterTickMovement(CallbackInfo ci) {
         if ((Object) this instanceof CatEntity cat) {
-            var geniusCat = CatsPlusData.getGeniusCat(cat);
+            var source = ((IMusicianCat) cat).catsplus$getSoundSource();
 
-            if (geniusCat.getSongSource() == null
-                    || !geniusCat.getSongSource().isWithinDistance(cat.getPos(), 3.46)
-                    || !cat.getWorld().getBlockState(geniusCat.getSongSource()).isOf(Blocks.JUKEBOX)) {
-                geniusCat.songStopPlay();
+            if (source == null
+                    || !source.isWithinDistance(cat.getPos(), 5)
+                    || !cat.getWorld().getBlockState(source).isOf(Blocks.JUKEBOX)) {
+                ((IMusicianCat) cat).catsplus$setSoundSource(null);
             }
         }
     }

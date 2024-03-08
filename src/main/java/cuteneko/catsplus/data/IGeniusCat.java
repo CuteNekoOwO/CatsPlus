@@ -2,6 +2,7 @@ package cuteneko.catsplus.data;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
 public interface IGeniusCat {
     boolean hasTotem();
@@ -23,9 +24,4 @@ public interface IGeniusCat {
 
     int getLives();             // Todo: qyl27: Give it a purpose?
     void setLives(int lives);
-
-    boolean isSongPlaying();
-    BlockPos getSongSource();
-    void songStartPlay(BlockPos source);
-    void songStopPlay();
 }

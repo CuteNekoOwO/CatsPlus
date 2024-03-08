@@ -2,12 +2,12 @@ package cuteneko.catsplus.fabric.data;
 
 import cuteneko.catsplus.fabric.mixins.impl.ICatEntityMixin;
 import cuteneko.catsplus.data.IGeniusCat;
-import net.minecraft.advancement.criterion.Criteria;
+import cuteneko.catsplus.mixins.bridge.dancing.IMusicianCat;
 import net.minecraft.entity.EntityStatuses;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
 public class GeniusCatFabric implements IGeniusCat {
     private final CatEntity cat;
@@ -57,27 +57,5 @@ public class GeniusCatFabric implements IGeniusCat {
     @Override
     public void setLives(int lives) {
         ((ICatEntityMixin) cat).catsplus$setLives(lives);
-    }
-
-    @Override
-    public boolean isSongPlaying() {
-        return ((ICatEntityMixin) cat).catsplus$isSongPlaying();
-    }
-
-    @Override
-    public BlockPos getSongSource() {
-        return ((ICatEntityMixin) cat).catsplus$getSongSource();
-    }
-
-    @Override
-    public void songStartPlay(BlockPos source) {
-        ((ICatEntityMixin) cat).catsplus$setSongPlaying(true);
-        ((ICatEntityMixin) cat).catsplus$setSongSource(source);
-    }
-
-    @Override
-    public void songStopPlay() {
-        ((ICatEntityMixin) cat).catsplus$setSongPlaying(false);
-        ((ICatEntityMixin) cat).catsplus$setSongSource(null);
     }
 }

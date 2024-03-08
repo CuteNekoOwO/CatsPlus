@@ -12,9 +12,4 @@ public interface ICatEntityMixin {
 
     int catsplus$getLives();
     void catsplus$setLives(int lives);
-
-    boolean catsplus$isSongPlaying();
-    void catsplus$setSongPlaying(boolean playing);
-    BlockPos catsplus$getSongSource();
-    void catsplus$setSongSource(BlockPos source);
 }

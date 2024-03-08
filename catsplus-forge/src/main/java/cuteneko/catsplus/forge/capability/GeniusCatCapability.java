@@ -2,12 +2,10 @@ package cuteneko.catsplus.forge.capability;
 
 import cuteneko.catsplus.data.IGeniusCat;
 import cuteneko.catsplus.utility.Constants;
-import cuteneko.catsplus.utility.NBTHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.HashMap;
@@ -18,9 +16,6 @@ public class GeniusCatCapability implements IGeniusCat, INBTSerializable<NbtComp
 
     private int lives = 0;
     private boolean totem = false;
-
-    private boolean songPlaying = false;
-    private BlockPos songSource = null;
 
     private final Map<UUID, Integer> favorability = new HashMap<>();
 
@@ -59,38 +54,11 @@ public class GeniusCatCapability implements IGeniusCat, INBTSerializable<NbtComp
     }
 
     @Override
-    public boolean isSongPlaying() {
-        return songPlaying;
-    }
-
-    @Override
-    public BlockPos getSongSource() {
-        return songSource;
-    }
-
-    @Override
-    public void songStartPlay(BlockPos source) {
-        songPlaying = true;
-        this.songSource = source;
-    }
-
-    @Override
-    public void songStopPlay() {
-        songPlaying = false;
-        songSource = null;
-    }
-
-    @Override
     public NbtCompound serializeNBT() {
         var tag = new NbtCompound();
 
         tag.putInt(Constants.TAG_GENIUS_CAT_LIVES, lives);
         tag.putBoolean(Constants.TAG_GENIUS_CAT_TOTEM, totem);
-
-        var dancing = new NbtCompound();
-        dancing.putBoolean(Constants.TAG_GENIUS_CAT_DANCING_SOUND_PLAYING, songPlaying);
-        dancing.put(Constants.TAG_GENIUS_CAT_DANCING_SOURCE, NBTHelper.putBlockPos(new NbtCompound(), songSource));
-        tag.put(Constants.TAG_GENIUS_CAT_DANCING, dancing);
 
         var favorability = new NbtList();
         for (var entry : this.favorability.entrySet()) {
@@ -108,10 +76,6 @@ public class GeniusCatCapability implements IGeniusCat, INBTSerializable<NbtComp
     public void deserializeNBT(NbtCompound tag) {
         lives = tag.getInt(Constants.TAG_GENIUS_CAT_LIVES);
         totem = tag.getBoolean(Constants.TAG_GENIUS_CAT_TOTEM);
-
-        var dancing = tag.getCompound(Constants.TAG_GENIUS_CAT_DANCING);
-        songPlaying = dancing.getBoolean(Constants.TAG_GENIUS_CAT_DANCING_SOUND_PLAYING);
-        songSource = NBTHelper.getBlockPos(dancing.getCompound(Constants.TAG_GENIUS_CAT_DANCING_SOURCE));
 
         var favorability = tag.getList(Constants.TAG_GENIUS_CAT_FAVORABILITY, NbtElement.LIST_TYPE);
         for (var entry : favorability) {
