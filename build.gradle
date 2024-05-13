@@ -21,7 +21,7 @@ allprojects {
     apply plugin: 'dev.architectury.loom'
     apply plugin: 'maven-publish'
 
-    group = 'cuteneko.catsplus'
+    group = 'cuteneko'
     version = "${project.mod_version}+mc${project.minecraft_version}"
 
     architectury {

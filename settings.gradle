@@ -26,5 +26,5 @@ pluginManagement {
 
 rootProject.name = 'catsplus'
 
-include 'catsplus-fabric'
-include 'catsplus-forge'
+include ':catsplus-fabric'
+include ':catsplus-forge'
