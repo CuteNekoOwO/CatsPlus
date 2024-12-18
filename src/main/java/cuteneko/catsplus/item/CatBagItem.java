@@ -1,114 +1,120 @@
 package cuteneko.catsplus.item;
 
-import cuteneko.catsplus.CatsPlusData;
+import cuteneko.catsplus.data.component.CatContainer;
+import cuteneko.catsplus.data.component.ModComponents;
 import cuteneko.catsplus.item.group.ModItemGroups;
+import cuteneko.catsplus.utility.ComponentHelper;
 import cuteneko.catsplus.utility.Constants;
-import net.minecraft.client.item.TooltipContext;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.DyeableItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUsageContext;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.nbt.NbtDouble;
-import net.minecraft.nbt.NbtList;
-import net.minecraft.server.world.ServerWorld;
-import net.minecraft.text.Text;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Formatting;
-import net.minecraft.util.Hand;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Direction;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.World;
-import net.minecraft.world.event.GameEvent;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cat;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.DyedItemColor;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 
-public class CatBagItem extends Item implements DyeableItem {
+public class CatBagItem extends Item {
 
     public CatBagItem() {
-        super(new Item.Settings()
-                .fireproof()
-                .maxCount(1)
+        super(new Item.Properties()
+                .fireResistant()
+                .stacksTo(1)
+                .component(DataComponents.DYED_COLOR, new DyedItemColor(DyedItemColor.LEATHER_COLOR, false))
+                .component(ModComponents.CAT_CONTAINER.get(), null)
                 .arch$tab(ModItemGroups.CATS_PLUS));
     }
 
     @Override
-    public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        if (!stack.hasNbt() || !Objects.requireNonNull(stack.getNbt()).contains(Constants.TAG_CAT_CONTAINER)) {
-            tooltip.add(Text.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_NO_CAT).formatted(Formatting.DARK_GRAY));
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
+        var catContainer = ComponentHelper.getCatContainer(stack);
+        if (catContainer == null) {
+            tooltip.add(Component.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_NO_CAT).withStyle(ChatFormatting.DARK_GRAY));
             return;
         }
 
-        var bag = CatsPlusData.getCatBag(stack);
-        if (bag.hasCustomCatName()) {
-            tooltip.add(Text.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_NAMED_CAT, bag.getCustomCatName().getString()).formatted(Formatting.BLUE));
+        if (catContainer.hasCustomName()) {
+            tooltip.add(Component.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_NAMED_CAT, catContainer.customName().getString()).withStyle(ChatFormatting.BLUE));
         } else {
-            tooltip.add(Text.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_CAT).formatted(Formatting.BLUE));
+            tooltip.add(Component.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_CAT).withStyle(ChatFormatting.BLUE));
         }
     }
 
     @Override
-    public ActionResult useOnBlock(ItemUsageContext context) {
-        var stack = context.getStack();
-
-        if (stack.hasCustomName()) {
-            var name = stack.getName().getString();
-            if ("MeowBot233".equalsIgnoreCase(name)
-                    || "Fang_Luo".equalsIgnoreCase(name)
-                    || "坊洛".equalsIgnoreCase(name)) {
-                stack.removeCustomName();
-                Objects.requireNonNull(context.getPlayer()).giveItemStack(new ItemStack(ModItems.FANG_LUO));
-                return ActionResult.SUCCESS;
-            }
-        }
-
-        var bag = CatsPlusData.getCatBag(stack);
-        if (!bag.hasCat()) {
-            return ActionResult.PASS;
-        }
-
-        Direction direction = context.getSide();
-        var world = context.getWorld();
+    public @NotNull InteractionResult useOn(UseOnContext context) {
+        var stack = context.getItemInHand();
+        var name = ComponentHelper.getCustomName(stack);
         var player = context.getPlayer();
-        var pos = context.getBlockPos().offset(direction).toCenterPos();
-
-        if (world instanceof ServerWorld) {
-            var cat = bag.getCat(world);
-            cat.setPosition(pos);
-            world.spawnEntity(cat);
-            world.emitGameEvent(player, GameEvent.ENTITY_PLACE, pos);
+        if (player == null) {
+            return InteractionResult.PASS;
         }
 
-        bag.clearCat();
-        Objects.requireNonNull(context.getPlayer()).setStackInHand(context.getHand(), stack);
-        return ActionResult.SUCCESS;
-    }
-
-    @Override
-    public ActionResult useOnEntity(ItemStack stack, PlayerEntity user, LivingEntity entity, Hand hand) {
-        if (entity instanceof CatEntity cat) {
-            var bag = CatsPlusData.getCatBag(stack);
-            if (!bag.hasCat()) {
-                if (cat.isOwner(user)) {
-                    cat.setSitting(false);
-                    bag.setCat(cat);
-                    cat.discard();
-                    user.setStackInHand(hand, stack);
-                    return ActionResult.SUCCESS;
-                } else {
-                    return ActionResult.FAIL;
-                }
+        if (name != null) {
+            var str = name.getString();
+            if ("MeowBot233".equalsIgnoreCase(str)
+                    || "Fang_Luo".equalsIgnoreCase(str)
+                    || "坊洛".equalsIgnoreCase(str)) {
+                ComponentHelper.removeCustomName(stack);
+                player.addItem(new ItemStack(ModItems.FANG_LUO));
+                return InteractionResult.SUCCESS;
             }
         }
 
-        return ActionResult.PASS;
+        var catContainer = ComponentHelper.getCatContainer(stack);
+        if (catContainer == null) {
+            return InteractionResult.PASS;
+        }
+
+        var direction = context.getClickedFace();
+        var level = context.getLevel();
+        var spawnPos = context.getClickedPos().relative(direction);
+        if (!level.isLoaded(spawnPos) || !level.getBlockState(spawnPos).isAir()) {
+            // Todo: Fail particle.
+            return InteractionResult.FAIL;
+        }
+
+        if (level instanceof ServerLevel) {
+            var cat = catContainer.createCat(level);
+            cat.setPos(spawnPos.getBottomCenter());
+            cat.setOrderedToSit(true);
+            level.addFreshEntity(cat);
+            level.gameEvent(player, GameEvent.ENTITY_PLACE, spawnPos);
+        }
+
+        ComponentHelper.removeCatContainer(stack);
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public @NotNull InteractionResult interactLivingEntity(ItemStack stack, Player player, LivingEntity entity,
+                                                           InteractionHand usedHand) {
+        if (ComponentHelper.getCatContainer(stack) != null) {
+            return InteractionResult.PASS;
+        }
+
+        if (entity instanceof Cat cat) {
+            if (!cat.isOwnedBy(player)) {
+                // Todo: Fail particle.
+                return InteractionResult.FAIL;
+            }
+
+            cat.setOrderedToSit(true);
+            var catContainer = new CatContainer(cat);
+            ComponentHelper.setCatContainer(stack, catContainer);
+            cat.discard();
+            return InteractionResult.SUCCESS;
+        }
+
+        return InteractionResult.PASS;
     }
 }

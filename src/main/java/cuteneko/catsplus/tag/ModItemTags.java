@@ -1,11 +1,11 @@
 package cuteneko.catsplus.tag;
 
 import cuteneko.catsplus.CatsPlus;
-import net.minecraft.item.Item;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 
 public class ModItemTags {
-    public static final TagKey<Item> COOKED_FISHES = TagKey.of(RegistryKeys.ITEM, new Identifier(CatsPlus.MODID, "cooked_fishes"));
+    public static final TagKey<Item> COOKED_FISHES = TagKey.of(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(CatsPlus.MODID, "cooked_fishes"));
 }

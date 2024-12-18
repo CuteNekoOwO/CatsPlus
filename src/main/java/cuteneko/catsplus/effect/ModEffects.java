@@ -3,15 +3,15 @@ package cuteneko.catsplus.effect;
 import cuteneko.catsplus.CatsPlus;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffect;
 
 public class ModEffects {
-    public static final DeferredRegister<StatusEffect> EFFECTS = DeferredRegister.create(CatsPlus.MODID, RegistryKeys.STATUS_EFFECT);
+    public static final DeferredRegister<MobEffect> REGISTRY = DeferredRegister.create(CatsPlus.MODID, Registries.MOB_EFFECT);
 
     public static void register() {
-        EFFECTS.register();
+        REGISTRY.register();
     }
 
-    public static final RegistrySupplier<StatusEffect> CATTIFY = EFFECTS.register("cattify", CattifyEffect::new);
+    public static final RegistrySupplier<MobEffect> CATTIFY = REGISTRY.register("cattify", CattifyEffect::new);
 }

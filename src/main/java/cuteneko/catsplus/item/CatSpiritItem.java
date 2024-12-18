@@ -2,30 +2,31 @@ package cuteneko.catsplus.item;
 
 import cuteneko.catsplus.CatsPlusData;
 import cuteneko.catsplus.item.group.ModItemGroups;
+import cuteneko.catsplus.utility.ComponentHelper;
 import cuteneko.catsplus.utility.Constants;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
-import net.minecraft.util.Rarity;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
+import org.jetbrains.annotations.NotNull;
 
 public class CatSpiritItem extends Item {
     public CatSpiritItem() {
-        super(new Item.Settings()
-                .maxCount(1)
-                .fireproof()
+        super(new Item.Properties()
+                .stacksTo(1)
+                .fireResistant()
                 .rarity(Rarity.EPIC)
                 .arch$tab(ModItemGroups.CATS_PLUS));
     }
 
     @Override
-    public Text getName(ItemStack stack) {
-        var spirit = CatsPlusData.getCatSpirit(stack);
-        if (spirit.hasCat()) {
-            if (spirit.hasCustomCatName()) {
-                return Text.translatable(Constants.MESSAGE_CAT_SPIRIT_NAME, spirit.getCustomCatName().getString());
+    public @NotNull Component getName(ItemStack stack) {
+        var catContainer = ComponentHelper.getCatContainer(stack);
+        if (catContainer != null) {
+            if (catContainer.hasCustomName()) {
+                return Component.translatable(Constants.MESSAGE_CAT_SPIRIT_NAME, catContainer.customName().getString());
             }
         }
-
         return super.getName(stack);
     }
 }

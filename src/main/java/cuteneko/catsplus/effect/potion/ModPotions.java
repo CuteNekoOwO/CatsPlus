@@ -4,17 +4,17 @@ import cuteneko.catsplus.CatsPlus;
 import cuteneko.catsplus.effect.ModEffects;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.registry.RegistryKeys;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.item.alchemy.Potion;
 
 public class ModPotions {
-    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(CatsPlus.MODID, RegistryKeys.POTION);
+    public static final DeferredRegister<Potion> REGISTRY = DeferredRegister.create(CatsPlus.MODID, Registries.POTION);
 
     public static void register() {
-        POTIONS.register();
+        REGISTRY.register();
     }
 
-    public static final RegistrySupplier<Potion> CATTIFY = POTIONS.register("cattify", () -> new Potion(new StatusEffectInstance(ModEffects.CATTIFY.get(), 1800)));
-    public static final RegistrySupplier<Potion> LONG_CATTIFY = POTIONS.register("long_cattify", () -> new Potion("cattify", new StatusEffectInstance(ModEffects.CATTIFY.get(), 4800)));
+    public static final RegistrySupplier<Potion> CATTIFY = REGISTRY.register("cattify", () -> new Potion(new MobEffectInstance(ModEffects.CATTIFY.get(), 1800)));
+    public static final RegistrySupplier<Potion> LONG_CATTIFY = REGISTRY.register("long_cattify", () -> new Potion("cattify", new MobEffectInstance(ModEffects.CATTIFY.get(), 4800)));
 }

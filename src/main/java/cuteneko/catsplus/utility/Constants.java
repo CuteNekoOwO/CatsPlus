@@ -1,7 +1,7 @@
 package cuteneko.catsplus.utility;
 
 import cuteneko.catsplus.CatsPlus;
-import net.minecraft.util.Identifier;
+import net.minecraft.resources.ResourceLocation;
 
 public class Constants {
     public static final String TAG_CAT_CONTAINER = "Cat";
@@ -17,14 +17,14 @@ public class Constants {
     public static final String TAG_DEATH_TIME = "deathAt";
     public static final String TAG_DEATH_MESSAGE = "deathMessage";
 
-    public static final Identifier CAP_CAT_PLAYER = new Identifier(CatsPlus.MODID, "cat_player_data");
+    public static final ResourceLocation CAP_CAT_PLAYER = CatsPlus.modLoc("cat_player_data");
     public static final String TAG_CAT_PLAYER_INNER_CAT = "innerCat";
     public static final String TAG_CAT_PLAYER_IS_CAT = "isCat";
 
-    public static final Identifier TAG_SERVER_HAS_CAT = new Identifier(CatsPlus.MODID, "cat_server_data");
+    public static final ResourceLocation TAG_SERVER_HAS_CAT = CatsPlus.modLoc("cat_server_data");
     public static final String TAG_SERVER_CAT_SPIRITS = "catSpirits";
 
-    public static final Identifier CAP_GENIUS_CAT = new Identifier(CatsPlus.MODID, "genius_cat_data");
+    public static final ResourceLocation CAP_GENIUS_CAT = CatsPlus.modLoc("genius_cat_data");
     public static final String TAG_GENIUS_CAT_LIVES = "lives";
     public static final String TAG_GENIUS_CAT_TOTEM = "totem";
     public static final String TAG_GENIUS_CAT_CAN_RESPAWN = "respawn";

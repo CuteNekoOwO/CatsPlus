@@ -1,78 +1,101 @@
 plugins {
     id 'architectury-plugin' version "${architect_plugin_version}"
     id 'dev.architectury.loom' version "${architectury_loom_version}"
+    id 'com.gradleup.shadow' version "${shadow_plugin_version}" apply false
+}
+
+base {
+    archivesName = rootProject.archive_base_name
 }
 
 architectury {
-    minecraft = project.minecraft_version
     common(project.enabled_platforms.split(','))
 }
 
 loom {
+    accessWidenerPath = file('src/main/resources/catsplus.accesswidener')
+
     runConfigs.configureEach {
         ideConfigGenerated = true
     }
 }
 
-sourceSets.main.resources.srcDir 'src/main/generated'
+dependencies {
+    // In order to use the @Environment and @EnvironmentInterface annotations from fabric loader.
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+
+    modApi "dev.architectury:architectury:${rootProject.architectury_api_version}"
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir file('src/generated/resources')
+            if (providers.gradleProperty('MOD_DEVELOPMENT').present) {
+                srcDir file('src/test/resources')
+            }
+        }
+    }
+}
 
 allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven-publish'
     apply plugin: 'architectury-plugin'
     apply plugin: 'dev.architectury.loom'
-    apply plugin: 'maven-publish'
 
     group = 'cuteneko'
-    version = "${project.mod_version}+mc${project.minecraft_version}"
+    version = "${rootProject.mod_version}+mc${rootProject.minecraft_version}"
 
     architectury {
-        minecraft = project.minecraft_version
+        minecraft = rootProject.minecraft_version
     }
 
     loom {
-        accessWidenerPath = file('src/main/resources/catsplus.accesswidener')
+        silentMojangMappingsLicense()
+
+        // Write your interface injections in architectury.common.json
+        interfaceInjection {
+            enableDependencyInterfaceInjection = true
+        }
     }
 
     repositories {
-        repositories {
-            maven {
-                name = 'Mod Menu'
-                url = 'https://maven.terraformersmc.com/releases'
-            }
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
+        }
+
+        maven {
+            name = 'Mod Menu'
+            url = 'https://maven.terraformersmc.com/releases'
+        }
+
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases/'
+        }
+
+        maven {
+            name = 'Forge'
+            url = 'https://maven.minecraftforge.net/'
         }
     }
 
     dependencies {
-        minecraft "com.mojang:minecraft:${project.minecraft_version}"
-        mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-
-        modImplementation "net.fabricmc:fabric-loader:${project.fabric_loader_version}"
-        modApi "dev.architectury:architectury:${project.architectury_version}"
-    }
-
-    configurations {
-        common
-        shadowCommon
-        compileClasspath.extendsFrom common
-        runtimeClasspath.extendsFrom common
-        developmentForge.extendsFrom common
-        developmentFabric.extendsFrom common
-        developmentNeoForge.extendsFrom common
-        developmentQuilt.extendsFrom common
-    }
-
-    def targetJavaVersion = 17
-    tasks.withType(JavaCompile).configureEach {
-        it.options.encoding = 'UTF-8'
-        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-            it.options.release = targetJavaVersion
+        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
+        mappings loom.layered() {
+            officialMojangMappings()
+            parchment("org.parchmentmc.data:parchment-${rootProject.parchment_minecraft_version}:${rootProject.parchment_version}@zip")
         }
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        options.release = 21
     }
 
     java {
-        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
-        if (JavaVersion.current() < javaVersion) {
-            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
-        }
         withSourcesJar()
     }
 
@@ -83,17 +106,33 @@ allprojects {
     }
 
     processResources {
-        var resourcesToReplace = ['build.properties', 'META-INF/mods.toml', 'pack.mcmeta', 'fabric.mod.json']
+        var resourcesToReplace = ['build.properties',
+                                  'pack.mcmeta',
+                                  'META-INF/mods.toml',
+                                  'META-INF/neoforge.mods.toml',
+                                  'fabric.mod.json']
 
         var replaceTokens = [
-                minecraft_version: minecraft_version,
-                mod_version: mod_version,
-                forge_loader_version: forge_loader_version,
-                forge_version: forge_version,
-                fabric_loader_version: fabric_loader_version,
-                fabric_api_version: fabric_api_version,
-                neoforge_version: neoforge_version,
-                architectury_version: architectury_version
+                mod_id                             : rootProject.mod_id,
+                mod_version                        : rootProject.mod_version,
+
+                minecraft_version                  : rootProject.minecraft_version,
+                fabric_loader_version              : rootProject.fabric_loader_version,
+                fabric_api_version                 : rootProject.fabric_api_version,
+                neoforge_loader_version            : rootProject.neoforge_loader_version,
+                neoforge_version                   : rootProject.neoforge_version,
+
+                architectury_api_version           : rootProject.architectury_api_version,
+
+                neoforge_minecraft_version_range   : rootProject.neoforge_minecraft_version_range,
+                neoforge_loader_version_range      : rootProject.neoforge_loader_version_range,
+                neoforge_version_range             : rootProject.neoforge_version_range,
+                neoforge_architectury_version_range: rootProject.neoforge_architectury_version_range,
+
+                fabric_minecraft_version_range     : rootProject.fabric_minecraft_version_range,
+                fabric_loader_version_range        : rootProject.fabric_loader_version_range,
+                fabric_api_version_range           : rootProject.fabric_api_version_range,
+                fabric_architectury_version_range  : rootProject.fabric_architectury_version_range
         ]
 
         inputs.properties replaceTokens
@@ -111,7 +150,7 @@ allprojects {
             maven {
                 name = 'YuluoMaven'
 
-                def ENV = System.getenv();
+                def ENV = System.getenv()
 
                 def releaseUrl = 'https://maven.yuluo.dev/repository/maven-releases/'
                 def snapshotUrl = 'https://maven.yuluo.dev/repository/maven-snapshots/'
@@ -122,6 +161,90 @@ allprojects {
                     password ENV.MOD_MAVEN_PASS
                 }
             }
+        }
+
+        publications {
+            maven(MavenPublication) {
+                from components.java
+            }
+        }
+    }
+}
+
+subprojects {
+    apply plugin: 'com.gradleup.shadow'
+
+    base {
+        archivesName = "$rootProject.archive_base_name-$project.name"
+    }
+
+    loom {
+        accessWidenerPath = project(':').loom.accessWidenerPath
+
+        runs {
+            client {
+                client()
+
+                runDir 'run/client'
+
+                // To support the Enhanced Class Redefinition in JBR.
+                vmArg '-XX:+IgnoreUnrecognizedVMOptions'
+                vmArg '-XX:+AllowEnhancedClassRedefinition'
+
+                // https://openjdk.org/jeps/400
+                property 'file.encoding', 'COMPAT'
+            }
+
+            server {
+                server()
+                runDir 'run/server'
+                vmArg '-XX:+IgnoreUnrecognizedVMOptions'
+                vmArg '-XX:+AllowEnhancedClassRedefinition'
+                property 'file.encoding', 'COMPAT'
+            }
+        }
+    }
+
+    configurations {
+        common {
+            canBeResolved = true
+            canBeConsumed = false
+        }
+
+        compileClasspath.extendsFrom common
+        runtimeClasspath.extendsFrom common
+        developmentFabric.extendsFrom common
+        developmentNeoForge.extendsFrom common
+        developmentForge.extendsFrom common
+
+        shadowBundle {
+            canBeResolved = true
+            canBeConsumed = false
+        }
+    }
+
+    dependencies {
+    }
+
+    shadowJar {
+        exclude 'architectury.common.json'
+        configurations = [project.configurations.shadowBundle]
+        archiveClassifier = 'dev-shadow'
+    }
+
+    remapJar {
+        input.set shadowJar.archiveFile
+    }
+
+    sourcesJar {
+        def commonSources = rootProject.sourcesJar
+        dependsOn commonSources
+        from commonSources.archiveFile.map { zipTree(it) }
+    }
+
+    components.java {
+        withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
+            skip()
         }
     }
 }

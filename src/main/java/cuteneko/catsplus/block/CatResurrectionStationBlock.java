@@ -1,9 +1,9 @@
 package cuteneko.catsplus.block;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 
 public class CatResurrectionStationBlock extends Block {
-    public CatResurrectionStationBlock(Settings settings) {
+    public CatResurrectionStationBlock(Properties settings) {
         super(settings);
     }
 }

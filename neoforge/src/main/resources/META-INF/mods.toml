@@ -1,0 +1,38 @@
+modLoader="javafml"
+loaderVersion="[${forge_loader_version},)"
+license="MIT"
+issueTrackerURL="https://github.com/CuteNekoOwO/CatsPlus/issues"
+
+[[mods]]
+modId="catsplus"
+version="${mod_version}"
+displayName="Cats+"
+displayURL="https://github.com/CuteNekoOwO/CatsPlus"
+#logoFile=""
+credits="CuteNekoOwO"
+authors="MeowBot233, YukieMiona and qyl27"
+displayTest="MATCH_VERSION"
+description='''
+Make cats in Minecraft more fun!
+'''
+
+[[dependencies.catsplus]]
+    modId="forge"
+    mandatory=true
+    versionRange="[${forge_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.catsplus]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[${minecraft_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.catsplus]]
+    modId="architectury"
+    mandatory=true
+    versionRange="[${architectury_version},)"
+    ordering="NONE"
+    side="BOTH"
