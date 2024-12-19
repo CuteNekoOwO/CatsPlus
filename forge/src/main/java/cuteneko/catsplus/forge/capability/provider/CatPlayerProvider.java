@@ -1,8 +1,8 @@
-package cuteneko.catsplus.forge.capability.provider;
+package cuteneko.catsplus.neoforge.data.provider;
 
-import cuteneko.catsplus.forge.capability.CatPlayerCapability;
-import cuteneko.catsplus.forge.capability.GeniusCatCapability;
-import cuteneko.catsplus.forge.capability.ModCapabilities;
+import cuteneko.catsplus.neoforge.data.CatPlayerCapability;
+import cuteneko.catsplus.neoforge.data.GeniusCatCapability;
+import cuteneko.catsplus.neoforge.data.ModCapabilities;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Direction;

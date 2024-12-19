@@ -1,6 +1,7 @@
 package cuteneko.catsplus.utility;
 
 import cuteneko.catsplus.data.component.CatContainer;
+import cuteneko.catsplus.data.component.CatSpirit;
 import cuteneko.catsplus.data.component.ModComponents;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -17,6 +18,18 @@ public class ComponentHelper {
 
     public static void removeCatContainer(ItemStack stack) {
         stack.remove(ModComponents.CAT_CONTAINER.get());
+    }
+
+    public static CatSpirit getCatSpirit(ItemStack stack) {
+        return stack.get(ModComponents.CAT_SPIRIT.get());
+    }
+
+    public static void setCatSpirit(ItemStack stack, CatSpirit catSpirit) {
+        stack.set(ModComponents.CAT_SPIRIT.get(), catSpirit);
+    }
+
+    public static void removeCatSpirit(ItemStack stack) {
+        stack.remove(ModComponents.CAT_SPIRIT.get());
     }
 
     public static Component getCustomName(ItemStack stack) {

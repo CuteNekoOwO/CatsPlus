@@ -1,4 +1,4 @@
-package cuteneko.catsplus.forge;
+package cuteneko.catsplus.neoforge;
 
 import cuteneko.catsplus.CatsPlus;
 import dev.architectury.platform.forge.EventBuses;

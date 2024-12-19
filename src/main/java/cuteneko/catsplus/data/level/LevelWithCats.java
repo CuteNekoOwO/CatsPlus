@@ -1,6 +1,6 @@
 package cuteneko.catsplus.data.level;
 
-import cuteneko.catsplus.utility.Constants;
+import cuteneko.catsplus.utility.ModConstants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
@@ -23,7 +23,7 @@ public class LevelWithCats extends SavedData {
     private static final Factory<LevelWithCats> FACTORY = new Factory<>(LevelWithCats::new, LevelWithCats::load, null);
 
     public static LevelWithCats getLevelWithCats(ServerLevel level) {
-        return level.getDataStorage().get(FACTORY, "cats_plus");
+        return level.getDataStorage().computeIfAbsent(FACTORY, ModConstants.LEVEL_WITH_CATS_FILE_NAME);
     }
 
     private final Map<UUID, NonNullList<ItemStack>> catSpirits = new HashMap<>();
@@ -37,18 +37,18 @@ public class LevelWithCats extends SavedData {
         return catSpirits.get(uuid);
     }
 
-    public void addCatSpirit(Player player, ItemStack catSpirit) {
-        var list = getCatSpiritsByOwner(player);
+    public void addCatSpirit(UUID owner, ItemStack catSpirit) {
+        var list = getCatSpiritsByOwner(owner);
         list.add(catSpirit);
         setDirty();
     }
 
-    public NonNullList<ItemStack> getCatSpiritsByOwner(Player player) {
-        return getCatSpirits(player.getUUID());
+    public NonNullList<ItemStack> getCatSpiritsByOwner(UUID owner) {
+        return getCatSpirits(owner);
     }
 
-    public void removeCatSpiritsByOwner(Player player) {
-        catSpirits.remove(player.getUUID());
+    public void removeCatSpiritsByOwner(UUID owner) {
+        catSpirits.remove(owner);
         setDirty();
     }
 
@@ -57,19 +57,15 @@ public class LevelWithCats extends SavedData {
         setDirty();
     }
 
-    public LevelWithCats create() {
-        return new LevelWithCats();
-    }
-
     public static LevelWithCats load(CompoundTag tag, HolderLookup.Provider registries) {
         LevelWithCats data = new LevelWithCats();
 
-        var spirits = tag.getList(Constants.TAG_SERVER_CAT_SPIRITS, Tag.TAG_COMPOUND);
+        var spirits = tag.getList(ModConstants.TAG_SERVER_CAT_SPIRITS, Tag.TAG_COMPOUND);
         for (var spirit : spirits) {
             if (spirit instanceof CompoundTag compound) {
-                var uuid = compound.getUUID(Constants.TAG_UUID);
+                var uuid = compound.getUUID(ModConstants.TAG_UUID);
                 var value = NonNullList.<ItemStack>create();
-                ContainerHelper.loadAllItems(compound.getCompound(Constants.TAG_VALUE), value, registries);
+                ContainerHelper.loadAllItems(compound.getCompound(ModConstants.TAG_VALUE), value, registries);
                 data.catSpirits.put(uuid, value);
             }
         }
@@ -82,10 +78,10 @@ public class LevelWithCats extends SavedData {
         var list = new ListTag();
         for (var entry : catSpirits.entrySet()) {
             var e = new CompoundTag();
-            e.putUUID(Constants.TAG_UUID, entry.getKey());
-            e.put(Constants.TAG_VALUE, ContainerHelper.saveAllItems(new CompoundTag(), entry.getValue(), registries));
+            e.putUUID(ModConstants.TAG_UUID, entry.getKey());
+            e.put(ModConstants.TAG_VALUE, ContainerHelper.saveAllItems(new CompoundTag(), entry.getValue(), registries));
         }
-        tag.put(Constants.TAG_SERVER_CAT_SPIRITS, list);
+        tag.put(ModConstants.TAG_SERVER_CAT_SPIRITS, list);
         return tag;
     }
 }

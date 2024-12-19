@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[${forge_loader_version},)"
+loaderVersion="${neoforge_loader_version_range}"
 license="MIT"
 issueTrackerURL="https://github.com/CuteNekoOwO/CatsPlus/issues"
 
@@ -17,22 +17,22 @@ Make cats in Minecraft more fun!
 '''
 
 [[dependencies.catsplus]]
-    modId="forge"
+    modId="neoforge"
     mandatory=true
-    versionRange="[${forge_version},)"
+    versionRange="${neoforge_version_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.catsplus]]
     modId="minecraft"
     mandatory=true
-    versionRange="[${minecraft_version},)"
+    versionRange="${neoforge_minecraft_version_range}"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.catsplus]]
     modId="architectury"
     mandatory=true
-    versionRange="[${architectury_version},)"
+    versionRange="${neoforge_architectury_version_range}"
     ordering="NONE"
     side="BOTH"

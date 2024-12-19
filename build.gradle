@@ -1,4 +1,5 @@
 plugins {
+    id 'java'
     id 'architectury-plugin' version "${architect_plugin_version}"
     id 'dev.architectury.loom' version "${architectury_loom_version}"
     id 'com.gradleup.shadow' version "${shadow_plugin_version}" apply false

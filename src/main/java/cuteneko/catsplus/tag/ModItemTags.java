@@ -7,5 +7,5 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class ModItemTags {
-    public static final TagKey<Item> COOKED_FISHES = TagKey.of(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(CatsPlus.MODID, "cooked_fishes"));
+    public static final TagKey<Item> COOKED_FISHES = TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(CatsPlus.MODID, "cooked_fishes"));
 }

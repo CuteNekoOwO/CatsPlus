@@ -18,4 +18,10 @@ public class ModComponents {
                     .persistent(CatContainer.CODEC)
                     .networkSynchronized(CatContainer.STREAM_CODEC)
                     .build());
+
+    public static final DeferredSupplier<DataComponentType<CatSpirit>> CAT_SPIRIT = REGISTRY.register("cat_spirit",
+            () -> DataComponentType.<CatSpirit>builder()
+                    .persistent(CatSpirit.CODEC)
+                    .networkSynchronized(CatSpirit.STREAM_CODEC)
+                    .build());
 }

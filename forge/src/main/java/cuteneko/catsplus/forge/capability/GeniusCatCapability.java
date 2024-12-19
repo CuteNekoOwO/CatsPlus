@@ -1,4 +1,4 @@
-package cuteneko.catsplus.forge.capability;
+package cuteneko.catsplus.neoforge.data;
 
 import cuteneko.catsplus.data.IGeniusCat;
 import cuteneko.catsplus.utility.Constants;

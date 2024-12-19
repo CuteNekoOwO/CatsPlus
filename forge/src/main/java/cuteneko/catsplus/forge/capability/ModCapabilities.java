@@ -1,10 +1,10 @@
-package cuteneko.catsplus.forge.capability;
+package cuteneko.catsplus.neoforge.data;
 
 import cuteneko.catsplus.CatsPlus;
 import cuteneko.catsplus.data.ICatPlayer;
 import cuteneko.catsplus.data.IGeniusCat;
-import cuteneko.catsplus.forge.capability.provider.CatPlayerProvider;
-import cuteneko.catsplus.forge.capability.provider.GeniusCatProvider;
+import cuteneko.catsplus.neoforge.data.provider.CatPlayerProvider;
+import cuteneko.catsplus.neoforge.data.provider.GeniusCatProvider;
 import cuteneko.catsplus.utility.Constants;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.CatEntity;

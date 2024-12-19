@@ -1,9 +1,9 @@
 package cuteneko.catsplus.mixin.dancing;
 
-import cuteneko.catsplus.bridge.IMusicianCat;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.util.math.BlockPos;
+import cuteneko.catsplus.CatsPlusData;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cat;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -11,13 +11,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin {
-    @Inject(method = "setNearbySongPlaying", at = @At("TAIL"))
-    private void afterSetNearbySongPlaying(BlockPos songPosition, boolean playing, CallbackInfo ci) {
-        if ((Object) this instanceof CatEntity cat) {
+    @Inject(method = "setRecordPlayingNearby", at = @At("TAIL"))
+    private void catsplus$setRecordPlayingNearby(BlockPos jukebox, boolean playing, CallbackInfo ci) {
+        if ((Object) this instanceof Cat cat) {
+            var geniusCat = CatsPlusData.getGeniusCat(cat);
+
             if (playing) {
-                ((IMusicianCat) cat).catsplus$setSoundSource(songPosition);
+                geniusCat.setSoundPlaying(jukebox);
             } else {
-                ((IMusicianCat) cat).catsplus$setSoundSource(null);
+                geniusCat.setSoundStopped();
             }
         }
     }

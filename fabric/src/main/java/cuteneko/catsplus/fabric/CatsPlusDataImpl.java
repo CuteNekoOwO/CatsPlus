@@ -1,18 +1,11 @@
 package cuteneko.catsplus.fabric;
 
-import cuteneko.catsplus.fabric.data.CatPlayerFabric;
-import cuteneko.catsplus.fabric.data.GeniusCatFabric;
-import cuteneko.catsplus.data.ICatPlayer;
 import cuteneko.catsplus.data.entity.GeniusCat;
-import net.minecraft.entity.passive.CatEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import cuteneko.catsplus.fabric.mixins.impl.ICatEntityMixin;
+import net.minecraft.world.entity.animal.Cat;
 
 public class CatsPlusDataImpl {
-    public static ICatPlayer getCatPlayer(PlayerEntity player) {
-        return new CatPlayerFabric(player);
-    }
-
-    public static GeniusCat getGeniusCat(CatEntity cat) {
-        return new GeniusCatFabric(cat);
+    public static GeniusCat getGeniusCat(Cat cat) {
+        return ((ICatEntityMixin) cat).catsplus$getGeniusCat();
     }
 }

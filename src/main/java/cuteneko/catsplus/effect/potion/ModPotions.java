@@ -15,6 +15,6 @@ public class ModPotions {
         REGISTRY.register();
     }
 
-    public static final RegistrySupplier<Potion> CATTIFY = REGISTRY.register("cattify", () -> new Potion(new MobEffectInstance(ModEffects.CATTIFY.get(), 1800)));
-    public static final RegistrySupplier<Potion> LONG_CATTIFY = REGISTRY.register("long_cattify", () -> new Potion("cattify", new MobEffectInstance(ModEffects.CATTIFY.get(), 4800)));
+    public static final RegistrySupplier<Potion> CATTIFY = REGISTRY.register("cattify", () -> new Potion(new MobEffectInstance(ModEffects.CATTIFY, 1800)));
+    public static final RegistrySupplier<Potion> LONG_CATTIFY = REGISTRY.register("long_cattify", () -> new Potion("cattify", new MobEffectInstance(ModEffects.CATTIFY, 4800)));
 }

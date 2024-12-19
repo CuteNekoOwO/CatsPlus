@@ -14,14 +14,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public abstract class LivingEntityMixin {
 
     @Inject(method = "getHurtSound", at = @At("RETURN"), cancellable = true)
-    private void playHurtSound(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> cir) {
+    private void catsplus$getHurtSound(DamageSource damageSource, CallbackInfoReturnable<SoundEvent> cir) {
         if (CattifyHelper.cattified((LivingEntity) (Object) this)) {
             cir.setReturnValue(SoundEvents.CAT_HURT);
         }
     }
 
     @Inject(method = "getDeathSound", at = @At("RETURN"), cancellable = true)
-    private void playDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
+    private void catsplus$getDeathSound(CallbackInfoReturnable<SoundEvent> cir) {
         if (CattifyHelper.cattified((LivingEntity) (Object) this)) {
             cir.setReturnValue(SoundEvents.CAT_DEATH);
         }

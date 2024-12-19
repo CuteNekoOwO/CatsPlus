@@ -1,8 +1,7 @@
 package cuteneko.catsplus.listener;
 
-import cuteneko.catsplus.CatsPlusData;
 import cuteneko.catsplus.data.level.LevelWithCats;
-import cuteneko.catsplus.utility.Constants;
+import cuteneko.catsplus.utility.ModConstants;
 import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -15,11 +14,11 @@ public class CatSpiritListener {
     private void onPlayerJoin(ServerPlayer player) {
         var level = player.serverLevel();
         var data = LevelWithCats.getLevelWithCats(level);
-        var spirits = data.getCatSpiritsByOwner(player);
+        var spirits = data.getCatSpiritsByOwner(player.getUUID());
         for (var spirit : spirits) {
             player.addItem(spirit);
-            player.sendSystemMessage(Component.translatable(Constants.MESSAGE_CAT_DIED));
+            player.sendSystemMessage(Component.translatable(ModConstants.MESSAGE_CAT_DIED));
         }
-        catServer.clearCatSpiritsByOwner(player);
+        data.removeCatSpiritsByOwner(player.getUUID());
     }
 }

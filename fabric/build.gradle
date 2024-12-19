@@ -14,7 +14,7 @@ loom {
             vmArg "-Dfabric-api.datagen.output-dir=${file("../src/main/generated")}"
             vmArg '-Dfabric-api.datagen.modid=catsplus'
 
-            runDir 'build/datagen'
+            runDir 'run/datagen'
         }
     }
 }

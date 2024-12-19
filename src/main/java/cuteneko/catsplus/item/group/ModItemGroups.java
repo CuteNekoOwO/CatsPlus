@@ -2,7 +2,7 @@ package cuteneko.catsplus.item.group;
 
 import cuteneko.catsplus.CatsPlus;
 import cuteneko.catsplus.item.ModItems;
-import cuteneko.catsplus.utility.Constants;
+import cuteneko.catsplus.utility.ModConstants;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -19,5 +19,5 @@ public class ModItemGroups {
         REGISTRY.register();
     }
 
-    public static final RegistrySupplier<CreativeModeTab> CATS_PLUS = REGISTRY.register("catsplus_group", () -> CreativeTabRegistry.create(Component.translatable(Constants.MESSAGE_CATS_GROUP_TITLE), () -> new ItemStack(ModItems.CAT_BAG)));
+    public static final RegistrySupplier<CreativeModeTab> CATS_PLUS = REGISTRY.register("catsplus_group", () -> CreativeTabRegistry.create(Component.translatable(ModConstants.MESSAGE_CATS_GROUP_TITLE), () -> new ItemStack(ModItems.CAT_BAG)));
 }

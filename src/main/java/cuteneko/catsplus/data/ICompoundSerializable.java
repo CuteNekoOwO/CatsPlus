@@ -5,7 +5,7 @@ import net.minecraft.nbt.CompoundTag;
 import org.jetbrains.annotations.NotNull;
 
 public interface ICompoundSerializable {
-    @NotNull CompoundTag serializeNBT(HolderLookup.Provider registries);
+    @NotNull CompoundTag serializeTag(HolderLookup.Provider registries);
 
-    void deserializeNBT(@NotNull CompoundTag tag, HolderLookup.Provider registries);
+    void deserializeTag(@NotNull CompoundTag tag, HolderLookup.Provider registries);
 }

@@ -4,7 +4,8 @@ import cuteneko.catsplus.data.component.CatContainer;
 import cuteneko.catsplus.data.component.ModComponents;
 import cuteneko.catsplus.item.group.ModItemGroups;
 import cuteneko.catsplus.utility.ComponentHelper;
-import cuteneko.catsplus.utility.Constants;
+import cuteneko.catsplus.utility.ModConstants;
+import cuteneko.catsplus.utility.ParticleHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -39,14 +40,14 @@ public class CatBagItem extends Item {
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag tooltipFlag) {
         var catContainer = ComponentHelper.getCatContainer(stack);
         if (catContainer == null) {
-            tooltip.add(Component.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_NO_CAT).withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatable(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_NO_CAT).withStyle(ChatFormatting.DARK_GRAY));
             return;
         }
 
         if (catContainer.hasCustomName()) {
-            tooltip.add(Component.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_NAMED_CAT, catContainer.customName().getString()).withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.translatable(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_NAMED_CAT, catContainer.customName().getString()).withStyle(ChatFormatting.BLUE));
         } else {
-            tooltip.add(Component.translatable(Constants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_CAT).withStyle(ChatFormatting.BLUE));
+            tooltip.add(Component.translatable(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_CAT).withStyle(ChatFormatting.BLUE));
         }
     }
 
@@ -79,7 +80,7 @@ public class CatBagItem extends Item {
         var level = context.getLevel();
         var spawnPos = context.getClickedPos().relative(direction);
         if (!level.isLoaded(spawnPos) || !level.getBlockState(spawnPos).isAir()) {
-            // Todo: Fail particle.
+            ParticleHelper.showFailed(player);
             return InteractionResult.FAIL;
         }
 
@@ -104,7 +105,7 @@ public class CatBagItem extends Item {
 
         if (entity instanceof Cat cat) {
             if (!cat.isOwnedBy(player)) {
-                // Todo: Fail particle.
+                ParticleHelper.showFailed(player);
                 return InteractionResult.FAIL;
             }
 

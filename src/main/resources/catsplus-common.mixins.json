@@ -1,31 +1,32 @@
 {
-    "required": true,
-    "minVersion": "0.8",
-    "package": "cuteneko.catsplus.mixin",
-    "compatibilityLevel": "JAVA_17",
-    "mixins": [
-        "CatEntityMixin",
-        "PlayerEntityMixin",
-        "cattify.CreeperEntityMixin",
-        "cattify.EntityMixin",
-        "cattify.LivingEntityMixin",
-        "cattify.MobEntityMixin",
-        "dancing.AnimalEntityMixin",
-        "dancing.CatEntityMixin",
-        "dancing.LivingEntityMixin",
-        "favorability.CatSleepWithOwnerGoal",
-        "favorability.EntityMixin",
-        "totemeow.LivingEntityMixin",
-        "totemeow.TamableEntityMixin"
-    ],
-    "client": [
-        "cattify.PlayerEntityRendererMixin",
-        "dancing.CatEntityModelMixin",
-        "paper_model.BipedEntityModelMixin",
-        "paper_model.PlayerEntityRendererMixin",
-        "paper_model.PlayerHeldItemFeatureRendererMixin"
-    ],
-    "injectors": {
-        "defaultRequire": 1
-    }
+  "required": true,
+  "minVersion": "0.8",
+  "package": "cuteneko.catsplus.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "CatMixin",
+    "PlayerMixin",
+    "TamableAnimalMixin",
+    "cattify.CreeperMixin",
+    "cattify.EntityMixin",
+    "cattify.LivingEntityMixin",
+    "cattify.MobMixin",
+    "dancing.AnimalMixin",
+    "dancing.CatMixin",
+    "dancing.LivingEntityMixin",
+    "favorability.CatRelaxOnOwnerGoalMixin",
+    "favorability.EntityMixin",
+    "totemeow.LivingEntityMixin",
+    "totemeow.TamableAnimalMixin"
+  ],
+  "client": [
+    "cattify.PlayerRendererMixin",
+    "dancing.CatModelMixin",
+    "paper_model.HumanoidModelMixin",
+    "paper_model.PlayerItemInHandLayerMixin",
+    "paper_model.PlayerRendererMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

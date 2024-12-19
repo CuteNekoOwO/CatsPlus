@@ -1,8 +1,8 @@
-package cuteneko.catsplus.forge;
+package cuteneko.catsplus.neoforge;
 
 import cuteneko.catsplus.data.ICatPlayer;
 import cuteneko.catsplus.data.IGeniusCat;
-import cuteneko.catsplus.forge.capability.ModCapabilities;
+import cuteneko.catsplus.neoforge.data.ModCapabilities;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.player.PlayerEntity;
 
