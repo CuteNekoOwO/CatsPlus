@@ -1,4 +1,4 @@
-package cuteneko.catsplus.mixin.paper_model;
+package cuteneko.catsplus.mixin.client.paper_model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import cuteneko.catsplus.item.ModItems;

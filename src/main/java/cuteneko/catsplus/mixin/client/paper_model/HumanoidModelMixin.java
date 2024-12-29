@@ -1,4 +1,4 @@
-package cuteneko.catsplus.mixin.paper_model;
+package cuteneko.catsplus.mixin.client.paper_model;
 
 import cuteneko.catsplus.item.ModItems;
 import net.minecraft.client.model.HumanoidModel;

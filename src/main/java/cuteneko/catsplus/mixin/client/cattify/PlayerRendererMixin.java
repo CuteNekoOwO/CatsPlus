@@ -1,4 +1,4 @@
-package cuteneko.catsplus.mixin.cattify;
+package cuteneko.catsplus.mixin.client.cattify;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import cuteneko.catsplus.client.entity.CatPlayerRenderer;

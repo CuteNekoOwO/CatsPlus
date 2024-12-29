@@ -1,10 +1,8 @@
 package cuteneko.catsplus.client.entity;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.OcelotModel;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.player.AbstractClientPlayer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;

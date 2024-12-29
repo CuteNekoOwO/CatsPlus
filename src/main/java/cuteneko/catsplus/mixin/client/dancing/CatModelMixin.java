@@ -1,4 +1,4 @@
-package cuteneko.catsplus.mixin.dancing;
+package cuteneko.catsplus.mixin.client.dancing;
 
 import cuteneko.catsplus.CatsPlusData;
 import net.minecraft.client.model.CatModel;

@@ -20,11 +20,12 @@
     "totemeow.TamableAnimalMixin"
   ],
   "client": [
-    "cattify.PlayerRendererMixin",
-    "dancing.CatModelMixin",
-    "paper_model.HumanoidModelMixin",
-    "paper_model.PlayerItemInHandLayerMixin",
-    "paper_model.PlayerRendererMixin"
+    "client.LivingEntityRendererMixin",
+    "client.cattify.PlayerRendererMixin",
+    "client.dancing.CatModelMixin",
+    "client.paper_model.HumanoidModelMixin",
+    "client.paper_model.PlayerItemInHandLayerMixin",
+    "client.paper_model.PlayerRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
