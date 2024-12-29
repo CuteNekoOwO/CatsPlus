@@ -1,38 +1,41 @@
-modLoader="javafml"
-loaderVersion="${neoforge_loader_version_range}"
-license="MIT"
-issueTrackerURL="https://github.com/CuteNekoOwO/CatsPlus/issues"
+modLoader = "javafml"
+loaderVersion = "${neoforge_loader_version_range}"
+license = "MIT"
+issueTrackerURL = "https://github.com/CuteNekoOwO/CatsPlus/issues"
 
 [[mods]]
-modId="catsplus"
-version="${mod_version}"
-displayName="Cats+"
-displayURL="https://github.com/CuteNekoOwO/CatsPlus"
+modId = "catsplus"
+version = "${mod_version}"
+displayName = "Cats+"
+displayURL = "https://github.com/CuteNekoOwO/CatsPlus"
 #logoFile=""
-credits="CuteNekoOwO"
-authors="MeowBot233, YukieMiona and qyl27"
-displayTest="MATCH_VERSION"
-description='''
+credits = "CuteNekoOwO"
+authors = "MeowBot233, YukieMiona and qyl27"
+displayTest = "MATCH_VERSION"
+description = '''
 Make cats in Minecraft more fun!
 '''
 
 [[dependencies.catsplus]]
-    modId="neoforge"
-    mandatory=true
-    versionRange="${neoforge_version_range}"
-    ordering="NONE"
-    side="BOTH"
+modId = "neoforge"
+mandatory = true
+versionRange = "${neoforge_version_range}"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.catsplus]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="${neoforge_minecraft_version_range}"
-    ordering="NONE"
-    side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "${neoforge_minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
 
 [[dependencies.catsplus]]
-    modId="sinocore"
-    mandatory=true
-    versionRange="${neoforge_sinocore_version_range}"
-    ordering="NONE"
-    side="BOTH"
+modId = "sinocore"
+mandatory = true
+versionRange = "${neoforge_sinocore_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[mixins]]
+config = "catsplus-common.mixins.json"

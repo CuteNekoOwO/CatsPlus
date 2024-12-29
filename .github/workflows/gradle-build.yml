@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Set up JDK 17
+      - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'zulu'
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
@@ -21,7 +21,8 @@ jobs:
       - name: Publish build
         uses: actions/upload-artifact@v3
         with:
-          name: build
+          name: artifacts
           path: |
-            catsplus-fabric/build/libs/catsplus-fabric-[0-9.]+.jar
+            fabric/build/libs/*.jar
+            neoforge/build/libs/*.jar
           retention-days: 90

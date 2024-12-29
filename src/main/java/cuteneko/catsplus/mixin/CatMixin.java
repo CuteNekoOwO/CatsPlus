@@ -28,13 +28,17 @@ public abstract class CatMixin extends TamableAnimal {
 
     @Inject(method = "isFood", at = @At("RETURN"), cancellable = true)
     public void catsplus$isFood(ItemStack stack, CallbackInfoReturnable<Boolean> cir) {
-        if (this.isTame()) {
+        if (isTame()) {
             cir.setReturnValue(stack.is(ModItemTags.COOKED_FISHES));
         }
     }
 
     @Inject(method = "usePlayerItem", at = @At("TAIL"))
     protected void catsplus$eat(Player player, InteractionHand hand, ItemStack stack, CallbackInfo ci) {
+        if (!isTame()) {
+            return;
+        }
+
         var geniusCat = CatsPlusData.getGeniusCat((Cat) (Object) this);
 
         var intimacy = 1;
@@ -53,6 +57,10 @@ public abstract class CatMixin extends TamableAnimal {
 
     @Inject(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Cat;setOrderedToSit(Z)V"), cancellable = true)
     public void catsplus$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        if (!isTame()) {
+            return;
+        }
+
         var geniusCat = CatsPlusData.getGeniusCat((Cat) (Object) this);
 
         if (player.isShiftKeyDown() && !player.isVehicle() && !CattifyHelper.cattified(player)) {
