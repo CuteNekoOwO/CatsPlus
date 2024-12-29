@@ -34,7 +34,7 @@ public class ModLangProviderENUS extends FabricLanguageProvider {
         builder.add(ModConstants.MESSAGE_CATTIFY_LINGERING_POTION, "Lingering Potion of Cattify");
         builder.add(ModConstants.MESSAGE_CATTIFY_POTION_ARROW, "Arrow of Cattify");
 
-        builder.add(ModItemGroups.CATS_PLUS.getKey(), "Cats+!");
+        builder.add(ModItemGroups.CATS_PLUS, "Cats+!");
         builder.add(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_NO_CAT, "Empty.");
         builder.add(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_CAT, "Cat Inside!");
         builder.add(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_NAMED_CAT, "%1$s Inside!");

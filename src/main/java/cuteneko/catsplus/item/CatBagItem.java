@@ -33,7 +33,7 @@ public class CatBagItem extends Item {
                 .stacksTo(1)
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(DyedItemColor.LEATHER_COLOR, false))
                 .component(ModComponents.CAT_CONTAINER.get(), null)
-                .arch$tab(ModItemGroups.CATS_PLUS));
+                .sino$tab(ModItemGroups.CATS_PLUS));
     }
 
     @Override
@@ -66,7 +66,7 @@ public class CatBagItem extends Item {
                     || "Fang_Luo".equalsIgnoreCase(str)
                     || "坊洛".equalsIgnoreCase(str)) {
                 ComponentHelper.removeCustomName(stack);
-                player.addItem(new ItemStack(ModItems.FANG_LUO));
+                player.addItem(new ItemStack(ModItems.FANG_LUO.get()));
                 return InteractionResult.SUCCESS;
             }
         }

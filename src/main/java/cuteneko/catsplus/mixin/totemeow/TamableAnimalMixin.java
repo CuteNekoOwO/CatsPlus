@@ -42,7 +42,7 @@ public abstract class TamableAnimalMixin extends Animal {
                 return;
             }
 
-            var stack = new ItemStack(ModItems.CAT_SPIRIT);
+            var stack = new ItemStack(ModItems.CAT_SPIRIT.get());
             ComponentHelper.setCatContainer(stack, new CatContainer(cat));
             ComponentHelper.setCatSpirit(stack, new CatSpirit(OffsetDateTime.now(), getCombatTracker().getDeathMessage()));
 

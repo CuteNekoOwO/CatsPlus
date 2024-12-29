@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
     id 'architectury-plugin' version "${architect_plugin_version}"
     id 'dev.architectury.loom' version "${architectury_loom_version}"
     id 'com.gradleup.shadow' version "${shadow_plugin_version}" apply false
@@ -10,14 +11,14 @@ base {
 }
 
 architectury {
-    common(project.enabled_platforms.split(','))
+    common('neoforge', 'fabric')
 }
 
 loom {
     accessWidenerPath = file('src/main/resources/catsplus.accesswidener')
 
     runConfigs.configureEach {
-        ideConfigGenerated = true
+        ideConfigGenerated = false
     }
 }
 
@@ -25,18 +26,11 @@ dependencies {
     // In order to use the @Environment and @EnvironmentInterface annotations from fabric loader.
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 
-    modApi "dev.architectury:architectury:${rootProject.architectury_api_version}"
+    modApi "games.moegirl.sinocraft:sinocore:${rootProject.sinocore_version}"
 }
 
-sourceSets {
-    main {
-        resources {
-            srcDir file('src/generated/resources')
-            if (providers.gradleProperty('MOD_DEVELOPMENT').present) {
-                srcDir file('src/test/resources')
-            }
-        }
-    }
+sourceSets.main.resources {
+    srcDir file('src/generated/resources')
 }
 
 allprojects {
@@ -70,6 +64,11 @@ allprojects {
         maven {
             name = 'Mod Menu'
             url = 'https://maven.terraformersmc.com/releases'
+        }
+
+        maven {
+            name = 'Yuluo'
+            url = 'https://maven.yuluo.dev/repository/maven-public/'
         }
 
         maven {
@@ -113,31 +112,9 @@ allprojects {
                                   'META-INF/neoforge.mods.toml',
                                   'fabric.mod.json']
 
-        var replaceTokens = [
-                mod_id                             : rootProject.mod_id,
-                mod_version                        : rootProject.mod_version,
+        var replaceTokens = rootProject.properties
 
-                minecraft_version                  : rootProject.minecraft_version,
-                fabric_loader_version              : rootProject.fabric_loader_version,
-                fabric_api_version                 : rootProject.fabric_api_version,
-                neoforge_loader_version            : rootProject.neoforge_loader_version,
-                neoforge_version                   : rootProject.neoforge_version,
-
-                architectury_api_version           : rootProject.architectury_api_version,
-
-                neoforge_minecraft_version_range   : rootProject.neoforge_minecraft_version_range,
-                neoforge_loader_version_range      : rootProject.neoforge_loader_version_range,
-                neoforge_version_range             : rootProject.neoforge_version_range,
-                neoforge_architectury_version_range: rootProject.neoforge_architectury_version_range,
-
-                fabric_minecraft_version_range     : rootProject.fabric_minecraft_version_range,
-                fabric_loader_version_range        : rootProject.fabric_loader_version_range,
-                fabric_api_version_range           : rootProject.fabric_api_version_range,
-                fabric_architectury_version_range  : rootProject.fabric_architectury_version_range
-        ]
-
-        inputs.properties replaceTokens
-        filteringCharset 'UTF-8'
+        filteringCharset = 'UTF-8'
 
         filesMatching(resourcesToReplace) {
             expand replaceTokens
@@ -176,7 +153,26 @@ subprojects {
     apply plugin: 'com.gradleup.shadow'
 
     base {
-        archivesName = "$rootProject.archive_base_name-$project.name"
+        archivesName = "${rootProject.archive_base_name}-${project.name}"
+    }
+
+    architectury {
+        platformSetupLoomIde()
+    }
+
+    configurations {
+        common {
+            canBeResolved = true
+            canBeConsumed = false
+        }
+
+        compileClasspath.extendsFrom common
+        runtimeClasspath.extendsFrom common
+
+        shadowBundle {
+            canBeResolved = true
+            canBeConsumed = false
+        }
     }
 
     loom {
@@ -193,7 +189,7 @@ subprojects {
                 vmArg '-XX:+AllowEnhancedClassRedefinition'
 
                 // https://openjdk.org/jeps/400
-                property 'file.encoding', 'COMPAT'
+                property 'file.encoding', 'utf8'
             }
 
             server {
@@ -201,30 +197,13 @@ subprojects {
                 runDir 'run/server'
                 vmArg '-XX:+IgnoreUnrecognizedVMOptions'
                 vmArg '-XX:+AllowEnhancedClassRedefinition'
-                property 'file.encoding', 'COMPAT'
+                property 'file.encoding', 'utf8'
             }
         }
     }
 
-    configurations {
-        common {
-            canBeResolved = true
-            canBeConsumed = false
-        }
-
-        compileClasspath.extendsFrom common
-        runtimeClasspath.extendsFrom common
-        developmentFabric.extendsFrom common
-        developmentNeoForge.extendsFrom common
-        developmentForge.extendsFrom common
-
-        shadowBundle {
-            canBeResolved = true
-            canBeConsumed = false
-        }
-    }
-
     dependencies {
+        common(project(path: ':', configuration: 'namedElements')) { transitive = false }
     }
 
     shadowJar {

@@ -10,8 +10,8 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
-public class FangLuoItem extends Item {
-    public FangLuoItem() {
+public class PaperDollItem extends Item {
+    public PaperDollItem() {
         super(new Item.Properties()
                 .fireResistant()
                 .rarity(Rarity.UNCOMMON));

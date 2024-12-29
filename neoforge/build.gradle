@@ -1,14 +1,18 @@
 architectury {
-    platformSetupLoomIde()
-    forge()
+    neoForge()
+}
+
+configurations {
+    developmentNeoForge.extendsFrom common
 }
 
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.neoforge_version}"
 
-    modApi "dev.architectury:architectury-neoforge:${rootProject.architectury_api_version}"
+    modApi "games.moegirl.sinocraft:sinocore-neoforge:${rootProject.sinocore_version}"
 
-    common(project(path: ':', configuration: 'namedElements')) { transitive false }
+    modRuntimeOnly "cx.rain.mc.nbtedit:nbtedit-neoforge:${rootProject.runtime_nbtedit_version}"
+
     shadowBundle project(path: ':', configuration: 'transformProductionNeoForge')
 }
 

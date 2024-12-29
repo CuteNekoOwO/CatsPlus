@@ -19,5 +19,6 @@
   "item.minecraft.potion.effect.cattify": "Potion of Cattify",
   "item.minecraft.splash_potion.effect.cattify": "Splash Potion of Cattify",
   "item.minecraft.tipped_arrow.effect.cattify": "Arrow of Cattify",
-  "itemGroup.catsplus.catsplus_group": "Cats+!"
+  "itemGroup.catsplus.catsplus_group": "Cats+!",
+  "message.catsplus.cat_died": "Your cat was died, its spirit back to its loved owner."
 }

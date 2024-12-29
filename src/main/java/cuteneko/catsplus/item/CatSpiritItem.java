@@ -20,8 +20,7 @@ public class CatSpiritItem extends Item {
                 .fireResistant()
                 .rarity(Rarity.EPIC)
                 .component(ModComponents.CAT_CONTAINER.get(), null)
-                .component(ModComponents.CAT_SPIRIT.get(), null)
-                .arch$tab(ModItemGroups.CATS_PLUS));
+                .component(ModComponents.CAT_SPIRIT.get(), null));
     }
 
     @Override

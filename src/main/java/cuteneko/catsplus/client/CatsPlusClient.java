@@ -3,12 +3,13 @@ package cuteneko.catsplus.client;
 import cuteneko.catsplus.CatsPlus;
 import cuteneko.catsplus.item.ModItems;
 import cuteneko.catsplus.utility.ComponentHelper;
-import dev.architectury.registry.item.ItemPropertiesRegistry;
+import games.moegirl.sinocraft.sinocore.client.ClientRegister;
+import net.minecraft.core.component.DataComponents;
 
 public class CatsPlusClient {
 
-    public static void initClient() {
-        ItemPropertiesRegistry.register(ModItems.CAT_BAG.get(), CatsPlus.modLoc("cat"),
+    public static void setupClient() {
+        ClientRegister.registerItemModelPredicate(ModItems.CAT_BAG.get(), CatsPlus.modLoc("cat"),
                 (stack, clientLevel, livingEntity, i) -> {
                     var catContainer = ComponentHelper.getCatContainer(stack);
                     if (catContainer == null) {
@@ -30,5 +31,15 @@ public class CatsPlusClient {
                         default -> 0F;
                     };
                 });
+
+        ClientRegister.registerItemColor((stack, tintIndex) -> {
+            if (tintIndex == 0) {
+                var color = stack.get(DataComponents.DYED_COLOR);
+                if (color != null) {
+                    return color.rgb();
+                }
+            }
+            return -1;
+        }, ModItems.CAT_BAG.get());
     }
 }

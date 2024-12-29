@@ -1,6 +1,9 @@
 architectury {
-    platformSetupLoomIde()
     fabric()
+}
+
+configurations {
+    developmentFabric.extendsFrom common
 }
 
 loom {
@@ -11,7 +14,7 @@ loom {
             name 'Data Generation'
 
             vmArg '-Dfabric-api.datagen'
-            vmArg "-Dfabric-api.datagen.output-dir=${file("../src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("../src/generated/resources")}"
             vmArg '-Dfabric-api.datagen.modid=catsplus'
 
             runDir 'run/datagen'
@@ -23,10 +26,11 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
     modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
 
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_api_version}"
-    modRuntimeOnly "com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}"
+    modApi "games.moegirl.sinocraft:sinocore-fabric:${rootProject.sinocore_version}"
 
-    common(project(path: ':', configuration: 'namedElements')) { transitive false }
+    modRuntimeOnly "com.terraformersmc:modmenu:${rootProject.fabric_mod_menu_version}"
+    modRuntimeOnly "cx.rain.mc.nbtedit:nbtedit-fabric:${rootProject.runtime_nbtedit_version}"
+
     shadowBundle project(path: ':', configuration: 'transformProductionFabric')
 }
 

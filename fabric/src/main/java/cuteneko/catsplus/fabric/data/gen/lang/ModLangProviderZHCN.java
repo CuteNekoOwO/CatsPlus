@@ -34,7 +34,7 @@ public class ModLangProviderZHCN extends FabricLanguageProvider {
         builder.add(ModConstants.MESSAGE_CATTIFY_LINGERING_POTION, "滞留型变猫药水");
         builder.add(ModConstants.MESSAGE_CATTIFY_POTION_ARROW, "变猫药水箭");
 
-        builder.add(ModItemGroups.CATS_PLUS.getKey(), "Cats+!");
+        builder.add(ModItemGroups.CATS_PLUS, "Cats+!");
         builder.add(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_NO_CAT, "空的。");
         builder.add(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_CAT, "内含猫猫！");
         builder.add(ModConstants.MESSAGE_CAT_BAG_DESCRIPTION_HAS_NAMED_CAT, "%1$s 在里面！");

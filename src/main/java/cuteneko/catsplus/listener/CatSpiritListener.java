@@ -2,13 +2,12 @@ package cuteneko.catsplus.listener;
 
 import cuteneko.catsplus.data.level.LevelWithCats;
 import cuteneko.catsplus.utility.ModConstants;
-import dev.architectury.event.events.common.PlayerEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
 public class CatSpiritListener {
     public CatSpiritListener() {
-        PlayerEvent.PLAYER_JOIN.register(this::onPlayerJoin);
+//        PlayerEvent.PLAYER_JOIN.register(this::onPlayerJoin);
     }
 
     private void onPlayerJoin(ServerPlayer player) {

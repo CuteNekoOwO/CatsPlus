@@ -31,8 +31,8 @@ Make cats in Minecraft more fun!
     side="BOTH"
 
 [[dependencies.catsplus]]
-    modId="architectury"
+    modId="sinocore"
     mandatory=true
-    versionRange="${neoforge_architectury_version_range}"
+    versionRange="${neoforge_sinocore_version_range}"
     ordering="NONE"
     side="BOTH"
