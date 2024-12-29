@@ -11,18 +11,18 @@
     "cattify.EntityMixin",
     "cattify.LivingEntityMixin",
     "cattify.MobMixin",
-    "dancing.AnimalMixin",
-    "dancing.CatMixin",
-    "dancing.LivingEntityMixin",
     "favorability.CatRelaxOnOwnerGoalMixin",
     "favorability.EntityMixin",
+    "musician.AnimalMixin",
+    "musician.CatMixin",
+    "musician.LivingEntityMixin",
     "totemeow.LivingEntityMixin",
     "totemeow.TamableAnimalMixin"
   ],
   "client": [
     "client.LivingEntityRendererMixin",
     "client.cattify.PlayerRendererMixin",
-    "client.dancing.CatModelMixin",
+    "client.musician.CatModelMixin",
     "client.paper_model.HumanoidModelMixin",
     "client.paper_model.PlayerItemInHandLayerMixin",
     "client.paper_model.PlayerRendererMixin"

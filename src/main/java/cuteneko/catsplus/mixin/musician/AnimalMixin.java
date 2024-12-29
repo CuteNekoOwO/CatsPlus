@@ -1,6 +1,6 @@
-package cuteneko.catsplus.mixin.dancing;
+package cuteneko.catsplus.mixin.musician;
 
-import cuteneko.catsplus.CatsPlusData;
+import cuteneko.catsplus.bridge.ICatBridge;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.level.block.Blocks;
@@ -14,14 +14,15 @@ public abstract class AnimalMixin {
     @Inject(method = "aiStep", at = @At("TAIL"))
     private void catsplus$aiStep(CallbackInfo ci) {
         if ((Object) this instanceof Cat cat) {
-            var geniusCat = CatsPlusData.getGeniusCat(cat);
-            var source = geniusCat.getSoundSource();
-
-            if (source == null
-                    || !source.closerThan(cat.blockPosition(), 5)
-                    || !cat.level().isLoaded(source)
-                    || !cat.level().getBlockState(source).is(Blocks.JUKEBOX)) {
-                geniusCat.setSoundStopped();
+            var bridge = (ICatBridge) cat;
+            if (bridge.catsplus$isSoundPlaying()) {
+                var source = bridge.catsplus$getSoundSource();
+                if (source == null
+                        || !source.closerThan(cat.blockPosition(), 5)
+                        || !cat.level().isLoaded(source)
+                        || !cat.level().getBlockState(source).is(Blocks.JUKEBOX)) {
+                    bridge.catsplus$stopSound();
+                }
             }
         }
     }

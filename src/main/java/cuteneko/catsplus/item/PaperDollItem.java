@@ -11,10 +11,8 @@ import net.minecraft.world.item.TooltipFlag;
 import java.util.List;
 
 public class PaperDollItem extends Item {
-    public PaperDollItem() {
-        super(new Item.Properties()
-                .fireResistant()
-                .rarity(Rarity.UNCOMMON));
+    public PaperDollItem(Properties properties) {
+        super(properties);
     }
 
     @Override

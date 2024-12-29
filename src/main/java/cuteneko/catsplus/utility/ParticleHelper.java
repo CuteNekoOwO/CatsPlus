@@ -19,25 +19,29 @@ public class ParticleHelper {
         showFailed(cat);
     }
 
+    public static void catMusic(Cat cat) {
+        produceParticles(cat, ParticleTypes.NOTE, 1);
+    }
+
     public static void showHappy(LivingEntity entity) {
-        produceParticles(entity, ParticleTypes.HEART);
+        produceParticles(entity, ParticleTypes.HAPPY_VILLAGER, 5);
     }
 
     public static void showAngry(LivingEntity entity) {
-        produceParticles(entity, ParticleTypes.ANGRY_VILLAGER);
+        produceParticles(entity, ParticleTypes.ANGRY_VILLAGER, 5);
     }
 
     public static void showFailed(LivingEntity entity) {
-        produceParticles(entity, ParticleTypes.SMOKE);
+        produceParticles(entity, ParticleTypes.SMOKE, 5);
     }
 
-    private static void produceParticles(LivingEntity entity, ParticleOptions parameters) {
-        for (int i = 0; i < 5; ++i) {
+    private static void produceParticles(LivingEntity entity, ParticleOptions parameters, int count) {
+        for (int i = 0; i < count; ++i) {
             double d = entity.getRandom().nextGaussian() * 0.02;
             double e = entity.getRandom().nextGaussian() * 0.02;
             double f = entity.getRandom().nextGaussian() * 0.02;
             entity.level().addParticle(parameters,
-                    entity.getRandomX(1.0), entity.getRandomY() + 1.0,
+                    entity.getRandomX(1.0), entity.getRandomY(),
                     entity.getRandomZ(1.0), d, e, f);
         }
     }

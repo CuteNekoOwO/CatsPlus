@@ -27,13 +27,10 @@ import java.util.List;
 
 public class CatBagItem extends Item {
 
-    public CatBagItem() {
-        super(new Item.Properties()
-                .fireResistant()
-                .stacksTo(1)
+    public CatBagItem(Properties properties) {
+        super(properties
                 .component(DataComponents.DYED_COLOR, new DyedItemColor(DyedItemColor.LEATHER_COLOR, false))
-                .component(ModComponents.CAT_CONTAINER.get(), null)
-                .sino$tab(ModItemGroups.CATS_PLUS));
+                .component(ModComponents.CAT_CONTAINER.get(), null));
     }
 
     @Override
@@ -93,6 +90,7 @@ public class CatBagItem extends Item {
         }
 
         ComponentHelper.removeCatContainer(stack);
+        player.setItemInHand(context.getHand(), stack);
         return InteractionResult.SUCCESS;
     }
 
@@ -103,7 +101,7 @@ public class CatBagItem extends Item {
             return InteractionResult.PASS;
         }
 
-        if (entity instanceof Cat cat) {
+        if (entity instanceof Cat cat && cat.isTame()) {
             if (!cat.isOwnedBy(player)) {
                 ParticleHelper.showFailed(player);
                 return InteractionResult.FAIL;
@@ -112,6 +110,7 @@ public class CatBagItem extends Item {
             cat.setOrderedToSit(true);
             var catContainer = new CatContainer(cat);
             ComponentHelper.setCatContainer(stack, catContainer);
+            player.setItemInHand(usedHand, stack);
             cat.discard();
             return InteractionResult.SUCCESS;
         }

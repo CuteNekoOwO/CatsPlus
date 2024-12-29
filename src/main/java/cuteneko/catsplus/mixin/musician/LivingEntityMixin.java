@@ -1,6 +1,6 @@
-package cuteneko.catsplus.mixin.dancing;
+package cuteneko.catsplus.mixin.musician;
 
-import cuteneko.catsplus.CatsPlusData;
+import cuteneko.catsplus.bridge.ICatBridge;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cat;
@@ -14,12 +14,14 @@ public abstract class LivingEntityMixin {
     @Inject(method = "setRecordPlayingNearby", at = @At("TAIL"))
     private void catsplus$setRecordPlayingNearby(BlockPos jukebox, boolean playing, CallbackInfo ci) {
         if ((Object) this instanceof Cat cat) {
-            var geniusCat = CatsPlusData.getGeniusCat(cat);
+            var bridge = (ICatBridge) cat;
 
-            if (playing) {
-                geniusCat.setSoundPlaying(jukebox);
-            } else {
-                geniusCat.setSoundStopped();
+            if (!bridge.catsplus$isSoundPlaying()) {
+                if (playing) {
+                    bridge.catsplus$startSound(jukebox);
+                } else {
+                    bridge.catsplus$stopSound();
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package cuteneko.catsplus.fabric.data.gen;
 
+import cuteneko.catsplus.item.ModItems;
 import cuteneko.catsplus.tag.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -20,5 +21,9 @@ public class ModItemTagProvider extends FabricTagProvider.ItemTagProvider {
         getOrCreateTagBuilder(ModItemTags.COOKED_FISHES)
                 .add(Items.COOKED_COD)
                 .add(Items.COOKED_SALMON);
+
+        getOrCreateTagBuilder(ModItemTags.CAT_INTERACTABLE)
+                .add(ModItems.CAT_BAG.get())
+                .add(ModItems.TOTEMEOW.get());
     }
 }

@@ -16,8 +16,8 @@ public class ModItems {
         ITEMS.register();
     }
 
-    public static final IRegRef<Item> CAT_BAG = ITEMS.register("cat_bag", CatBagItem::new);
-    public static final IRegRef<Item> TOTEMEOW = ITEMS.register("totemeow", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).sino$tab(ModItemGroups.CATS_PLUS)));
+    public static final IRegRef<Item> CAT_BAG = ITEMS.register("cat_bag", () -> new CatBagItem(new Item.Properties().fireResistant().stacksTo(1).sino$tab(ModItemGroups.CATS_PLUS)));
+    public static final IRegRef<Item> TOTEMEOW = ITEMS.register("totemeow", () -> new TotemeowItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON).sino$tab(ModItemGroups.CATS_PLUS)));
+    public static final IRegRef<Item> FANG_LUO = ITEMS.register("fang_luo", () -> new PaperDollItem(new Item.Properties().fireResistant().rarity(Rarity.UNCOMMON)));
     public static final IRegRef<Item> CAT_SPIRIT = ITEMS.register("cat_spirit", CatSpiritItem::new);
-    public static final IRegRef<Item> FANG_LUO = ITEMS.register("fang_luo", PaperDollItem::new);
 }

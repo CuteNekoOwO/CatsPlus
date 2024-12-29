@@ -13,11 +13,13 @@ public class ModConstants {
     public static final String LEVEL_WITH_CATS_FILE_NAME = "cats_plus";
     public static final String TAG_SERVER_CAT_SPIRITS = "catSpirits";
 
+    public static final String TAG_CAT_SOUND_PLAYING = "catsplus:sound_playing";
+    public static final String TAG_CAT_SOUND_SOURCE = "catsplus:sound_source";
+
     public static final ResourceLocation CAP_GENIUS_CAT = CatsPlus.modLoc("genius_cat_data");
     public static final String TAG_GENIUS_CAT = CAP_GENIUS_CAT.toString();
     public static final String TAG_GENIUS_CAT_HAS_TOTEM = "hasUndyingTotem";
     public static final String TAG_GENIUS_CAT_INTIMACIES = "intimacies";
-    public static final String TAG_GENIUS_CAT_SOUND_SOURCE = "soundSource";
 
     public static final String MESSAGE_CATS_GROUP_TITLE = "itemGroup.catsplus.catsplus_group";
 

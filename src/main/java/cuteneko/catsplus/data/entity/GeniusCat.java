@@ -1,14 +1,12 @@
 package cuteneko.catsplus.data.entity;
 
 import cuteneko.catsplus.data.ICompoundSerializable;
+import cuteneko.catsplus.bridge.ICatBridge;
 import cuteneko.catsplus.utility.ModConstants;
 import cuteneko.catsplus.utility.TagHelper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.player.Player;
 import org.jetbrains.annotations.NotNull;
@@ -30,8 +28,13 @@ public class GeniusCat implements ICompoundSerializable {
     // Cat's intimacies with player, [-100, 100]
     private final Map<UUID, Integer> intimacies = new HashMap<>();
 
-    public Integer getIntimacyWith(Player player) {
-        return intimacies.putIfAbsent(player.getUUID(), 0);
+    public int getIntimacyWith(Player player) {
+        var uuid = player.getUUID();
+        if (!intimacies.containsKey(uuid)) {
+            intimacies.put(uuid, 0);
+        }
+
+        return intimacies.get(uuid);
     }
 
     public void setIntimacyWith(Player player, int value) {
@@ -62,35 +65,6 @@ public class GeniusCat implements ICompoundSerializable {
 
     // </editor-fold>
 
-    // <editor-fold desc="Dancing">
-
-    public static final EntityDataAccessor<Boolean> SOUND_PLAYING = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.BOOLEAN);
-
-    public static final EntityDataAccessor<BlockPos> SOUND_SOURCE = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.BLOCK_POS);
-
-    public void setSoundPlaying(BlockPos source) {
-        if (source != null) {
-            cat.getEntityData().set(SOUND_PLAYING, true);
-            cat.getEntityData().set(SOUND_SOURCE, source);
-        } else {
-            cat.getEntityData().set(SOUND_PLAYING, false);
-        }
-    }
-
-    public void setSoundStopped() {
-        cat.getEntityData().set(SOUND_PLAYING, false);
-    }
-
-    public boolean isSoundPlaying() {
-        return cat.getEntityData().get(SOUND_PLAYING);
-    }
-
-    public BlockPos getSoundSource() {
-        return cat.getEntityData().get(SOUND_SOURCE);
-    }
-
-    // </editor-fold>
-
     @Override
     public @NotNull CompoundTag serializeTag(HolderLookup.Provider registries) {
         var tag = new CompoundTag();
@@ -101,13 +75,6 @@ public class GeniusCat implements ICompoundSerializable {
             intimaciesTag.putInt(entry.getKey().toString(), entry.getValue());
         }
         tag.put(ModConstants.TAG_GENIUS_CAT_INTIMACIES, intimaciesTag);
-
-        if (isSoundPlaying()) {
-            tag.put(ModConstants.TAG_GENIUS_CAT_SOUND_SOURCE, TagHelper.saveBlockPos(getSoundSource()));
-        } else {
-            tag.remove(ModConstants.TAG_GENIUS_CAT_SOUND_SOURCE);
-        }
-
         return tag;
     }
 
@@ -123,13 +90,6 @@ public class GeniusCat implements ICompoundSerializable {
                 var uuid = UUID.fromString(e);
                 var v = intimaciesTag.getInt(e);
                 this.intimacies.put(uuid, v);
-            }
-        }
-
-        if (tag.contains(ModConstants.TAG_GENIUS_CAT_SOUND_SOURCE)) {
-            var pos = TagHelper.loadBlockPos(tag.getCompound(ModConstants.TAG_GENIUS_CAT_SOUND_SOURCE));
-            if (pos != null) {
-                setSoundPlaying(pos);
             }
         }
     }

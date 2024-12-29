@@ -57,34 +57,21 @@ public abstract class CatMixin extends TamableAnimal {
 
     @Inject(method = "mobInteract", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Cat;setOrderedToSit(Z)V"), cancellable = true)
     public void catsplus$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (!isTame()) {
-            return;
-        }
-
-        var geniusCat = CatsPlusData.getGeniusCat((Cat) (Object) this);
-
         if (player.isShiftKeyDown() && !player.isVehicle() && !CattifyHelper.cattified(player)) {
-            // Todo
-//            ((ServerPlayer) player).connection.send(new ClientboundSetPassengersPacket(this));
             this.setOrderedToSit(false);
             this.startRiding(player);
-//            ((ServerPlayer) player).connection.send(new ClientboundSetPassengersPacket(player));
             cir.setReturnValue(InteractionResult.SUCCESS);
             cir.cancel();
             return;
-        } else if (player.getFirstPassenger() == this) {    // Not working since you can never click the cat on your head!!
-//            ((ServerPlayer) player).connection.send(new ClientboundSetPassengersPacket(this));
+        } else if (player.getFirstPassenger() == this) {
             this.stopRiding();
-//            ((ServerPlayer) player).connection.send(new ClientboundSetPassengersPacket(player));
             cir.setReturnValue(InteractionResult.SUCCESS);
             return;
         }
 
-        ItemStack itemStack = player.getItemInHand(hand);
-        if (itemStack.is(ModItems.TOTEMEOW.get()) && !geniusCat.hasTotem()) {
-            itemStack.shrink(1);
-            geniusCat.setTotem(true);
-            cir.setReturnValue(InteractionResult.SUCCESS);
+        var item = player.getItemInHand(hand);
+        if (item.is(ModItemTags.CAT_INTERACTABLE)) {
+            cir.setReturnValue(InteractionResult.PASS);
         }
     }
 }
