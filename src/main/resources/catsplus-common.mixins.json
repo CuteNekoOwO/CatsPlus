@@ -1,33 +1,33 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "cuteneko.catsplus.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "mixins": [
-    "CatMixin",
-    "PlayerMixin",
-    "TamableAnimalMixin",
-    "cattify.CreeperMixin",
-    "cattify.EntityMixin",
-    "cattify.LivingEntityMixin",
-    "cattify.MobMixin",
-    "favorability.CatRelaxOnOwnerGoalMixin",
-    "favorability.EntityMixin",
-    "musician.AnimalMixin",
-    "musician.CatMixin",
-    "musician.LivingEntityMixin",
-    "totemeow.LivingEntityMixin",
-    "totemeow.TamableAnimalMixin"
-  ],
-  "client": [
-    "client.LivingEntityRendererMixin",
-    "client.cattify.PlayerRendererMixin",
-    "client.musician.CatModelMixin",
-    "client.paper_model.HumanoidModelMixin",
-    "client.paper_model.PlayerItemInHandLayerMixin",
-    "client.paper_model.PlayerRendererMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "minVersion": "0.8",
+    "package": "cuteneko.catsplus.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "mixins": [
+        "CatMixin",
+        "PlayerMixin",
+        "TamableAnimalMixin",
+        "cattify.CreeperMixin",
+        "cattify.EntityMixin",
+        "cattify.LivingEntityMixin",
+        "cattify.MobMixin",
+        "favorability.CatRelaxOnOwnerGoalMixin",
+        "favorability.EntityMixin",
+        "musician.AnimalMixin",
+        "musician.CatMixin",
+        "musician.LivingEntityMixin",
+        "totemeow.LivingEntityMixin",
+        "totemeow.TamableAnimalMixin"
+    ],
+    "client": [
+        "client.LivingEntityRendererMixin",
+        "client.cattify.PlayerRendererMixin",
+        "client.musician.CatModelMixin",
+        "client.paper_model.HumanoidModelMixin",
+        "client.paper_model.PlayerItemInHandLayerMixin",
+        "client.paper_model.PlayerRendererMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }

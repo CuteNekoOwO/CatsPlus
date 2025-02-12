@@ -8,9 +8,9 @@ modId = "catsplus"
 version = "${mod_version}"
 displayName = "Cats+"
 displayURL = "https://github.com/CuteNekoOwO/CatsPlus"
-#logoFile=""
-credits = "CuteNekoOwO"
-authors = "MeowBot233, YukieMiona and qyl27"
+logoFile = "logo.png"
+credits = "YukieMiona, Kogasa-Studio"
+authors = "MeowBot233, CuteNekoOwO and qyl27"
 displayTest = "MATCH_VERSION"
 description = '''
 Make cats in Minecraft more fun!
@@ -34,7 +34,7 @@ side = "BOTH"
 modId = "sinocore"
 mandatory = true
 versionRange = "${neoforge_sinocore_version_range}"
-ordering = "NONE"
+ordering = "AFTER"
 side = "BOTH"
 
 [[mixins]]
